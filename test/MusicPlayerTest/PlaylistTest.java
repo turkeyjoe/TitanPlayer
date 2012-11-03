@@ -41,6 +41,6 @@ public class PlaylistTest {
     public void createPlaylistTest(){
         Playlist newList = new Playlist("My Songs");
         assertEquals("new empty playlist", 0, newList.songCount());
-        assertEquals("My Songs", newList.getName());
+        assertEquals("playlist has a name", "My Songs", newList.getName());
     }    
 }
