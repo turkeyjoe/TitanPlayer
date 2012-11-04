@@ -28,4 +28,8 @@ public class Playlist {
     public String getName(){
         return this.name;
     }
+    
+    public void addSong(Song song){
+        pl.add(song);
+    }
 }

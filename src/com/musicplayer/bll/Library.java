@@ -30,4 +30,8 @@ public class Library {
     public void removeSong(int index) {
         songs.remove(index);
     }
+
+    public Song getSong(int i) {
+        return songs.get(i);
+    }
 }

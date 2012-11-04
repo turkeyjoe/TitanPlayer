@@ -4,7 +4,9 @@
  */
 package MusicPlayerTest;
 
+import com.musicplayer.bll.Library;
 import com.musicplayer.bll.Playlist;
+import com.musicplayer.bll.Song;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -43,4 +45,22 @@ public class PlaylistTest {
         assertEquals("new empty playlist", 0, newList.songCount());
         assertEquals("playlist has a name", "My Songs", newList.getName());
     }    
+    
+    @Test
+    public void addSongToPlaylistTest(){
+        Song mySong = new Song("Send The Pain Below", "Chevelle");
+        Playlist pl = new Playlist("My Music");
+        pl.addSong(mySong);
+        assertEquals(1, pl.songCount());
+    }
+    
+    @Test
+    public void addSongFromLibraryTest(){
+        Library myLibrary = new Library();
+        Song mySong = new Song("The Sign", "Ace of Base");
+        myLibrary.addSong(mySong);
+        Playlist myPlaylist = new Playlist("Middle School");
+        myPlaylist.addSong(myLibrary.getSong(0));
+        assertEquals(1, myPlaylist.songCount());
+    }
 }
