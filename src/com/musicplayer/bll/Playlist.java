@@ -32,4 +32,8 @@ public class Playlist {
     public void addSong(Song song){
         pl.add(song);
     }
+    
+    public Song getSong(int i){
+        return pl.get(i);
+    }
 }
