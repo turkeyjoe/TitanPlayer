@@ -10,11 +10,12 @@ package com.musicplayer.bll;
  */
 public class Player {
     private Playlist playlist;
-    private int currentSong = 0;
+    private int currentSong;
     private boolean isPlaying = false;
 
     public void loadPlaylist(Playlist pl) {
         playlist = pl;
+        currentSong = 0;
         isPlaying = true;
     }
 

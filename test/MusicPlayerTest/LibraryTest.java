@@ -58,6 +58,7 @@ public class LibraryTest {
         testLibrary.addSong(new Song("Turn The Page", "Bob Seger"));
         testLibrary.removeSong(0);
         assertEquals(1, testLibrary.songCount());
+        assertEquals("Turn The Page", testLibrary.getSong(0).getTitle());
     }
         
     @Test

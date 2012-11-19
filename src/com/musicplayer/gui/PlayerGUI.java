@@ -10,6 +10,10 @@
  */
 package com.musicplayer.gui;
 
+import com.musicplayer.bll.AddSongDialog;
+import com.musicplayer.bll.MusicFileFilter;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author TJ
@@ -49,6 +53,12 @@ public class PlayerGUI extends javax.swing.JFrame {
         btnRemoveFromLibrary = new javax.swing.JButton();
         btnNewPlaylist = new javax.swing.JButton();
         btnDeletePlaylist = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mnuFile = new javax.swing.JMenu();
+        mnuFileClose = new javax.swing.JMenuItem();
+        mnuLibrary = new javax.swing.JMenu();
+        mnuLibraryAddSong = new javax.swing.JMenuItem();
+        mnuLibraryAddPlaylist = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Titan Player");
@@ -224,6 +234,36 @@ public class PlayerGUI extends javax.swing.JFrame {
 
         btnDeletePlaylist.setText("Delete Playlist");
 
+        mnuFile.setText("File");
+
+        mnuFileClose.setText("Close");
+        mnuFile.add(mnuFileClose);
+
+        jMenuBar1.add(mnuFile);
+
+        mnuLibrary.setText("Library");
+        mnuLibrary.setToolTipText("");
+
+        mnuLibraryAddSong.setText("Add Song");
+        mnuLibraryAddSong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuLibraryAddSongActionPerformed(evt);
+            }
+        });
+        mnuLibrary.add(mnuLibraryAddSong);
+
+        mnuLibraryAddPlaylist.setText("Add Playlist");
+        mnuLibraryAddPlaylist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuLibraryAddPlaylistActionPerformed(evt);
+            }
+        });
+        mnuLibrary.add(mnuLibraryAddPlaylist);
+
+        jMenuBar1.add(mnuLibrary);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -258,12 +298,12 @@ public class PlayerGUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNewPlaylist)
@@ -283,6 +323,14 @@ public class PlayerGUI extends javax.swing.JFrame {
     private void btnAddToLibraryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToLibraryActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddToLibraryActionPerformed
+
+    private void mnuLibraryAddPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLibraryAddPlaylistActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuLibraryAddPlaylistActionPerformed
+
+    private void mnuLibraryAddSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLibraryAddSongActionPerformed
+        AddSongDialog asd = new AddSongDialog();
+    }//GEN-LAST:event_mnuLibraryAddSongActionPerformed
 
     /**
      * @param args the command line arguments
@@ -328,6 +376,7 @@ public class PlayerGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -336,6 +385,11 @@ public class PlayerGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblCurrentTrack;
     private javax.swing.JLabel lblEndTime;
     private javax.swing.JList listPlaylist;
+    private javax.swing.JMenu mnuFile;
+    private javax.swing.JMenuItem mnuFileClose;
+    private javax.swing.JMenu mnuLibrary;
+    private javax.swing.JMenuItem mnuLibraryAddPlaylist;
+    private javax.swing.JMenuItem mnuLibraryAddSong;
     private javax.swing.JSlider sldCurrentPos;
     private javax.swing.JTable tblLibrary;
     private javax.swing.JTable tblPlaylists;
