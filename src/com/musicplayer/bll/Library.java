@@ -29,8 +29,8 @@ public class Library {
         songs.add(song);
     }
 
-    public void removeSong(int index) {
-        songs.remove(index);
+    public void removeSong(Song song) {
+        songs.remove(song);
     }
 
     public Song getSong(int i) {
@@ -46,7 +46,7 @@ public class Library {
         });
     }
     
-        public void sortByArtist() {
+    public void sortByArtist() {
         Collections.sort(songs, new Comparator<Song>() {
             @Override
             public int compare(Song s1, Song s2) {

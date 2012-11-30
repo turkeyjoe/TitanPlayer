@@ -56,7 +56,7 @@ public class LibraryTest {
         Library testLibrary = new Library();
         testLibrary.addSong(new Song("Dancing Nancies", "Dave Matthews Band"));
         testLibrary.addSong(new Song("Turn The Page", "Bob Seger"));
-        testLibrary.removeSong(0);
+        testLibrary.removeSong(testLibrary.getSong(0));
         assertEquals(1, testLibrary.songCount());
         assertEquals("Turn The Page", testLibrary.getSong(0).getTitle());
     }

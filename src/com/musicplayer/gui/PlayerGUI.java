@@ -12,6 +12,7 @@ package com.musicplayer.gui;
 
 import com.musicplayer.bll.AddSongDialog;
 import com.musicplayer.bll.MusicFileFilter;
+import com.musicplayer.bll.UserAccount;
 import javax.swing.JFileChooser;
 
 /**
@@ -20,6 +21,7 @@ import javax.swing.JFileChooser;
  */
 public class PlayerGUI extends javax.swing.JFrame {
 
+    private UserAccount currentUser;
     /** Creates new form PlayerGUI */
     public PlayerGUI() {
         initComponents();
@@ -59,6 +61,9 @@ public class PlayerGUI extends javax.swing.JFrame {
         mnuLibrary = new javax.swing.JMenu();
         mnuLibraryAddSong = new javax.swing.JMenuItem();
         mnuLibraryAddPlaylist = new javax.swing.JMenuItem();
+        mnuUser = new javax.swing.JMenu();
+        mnuLogin = new javax.swing.JMenuItem();
+        mnuLogout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Titan Player");
@@ -237,6 +242,11 @@ public class PlayerGUI extends javax.swing.JFrame {
         mnuFile.setText("File");
 
         mnuFileClose.setText("Close");
+        mnuFileClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuFileCloseActionPerformed(evt);
+            }
+        });
         mnuFile.add(mnuFileClose);
 
         jMenuBar1.add(mnuFile);
@@ -261,6 +271,26 @@ public class PlayerGUI extends javax.swing.JFrame {
         mnuLibrary.add(mnuLibraryAddPlaylist);
 
         jMenuBar1.add(mnuLibrary);
+
+        mnuUser.setText("User");
+
+        mnuLogin.setText("Login");
+        mnuLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuLoginActionPerformed(evt);
+            }
+        });
+        mnuUser.add(mnuLogin);
+
+        mnuLogout.setText("Logout");
+        mnuLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuLogoutActionPerformed(evt);
+            }
+        });
+        mnuUser.add(mnuLogout);
+
+        jMenuBar1.add(mnuUser);
 
         setJMenuBar(jMenuBar1);
 
@@ -316,6 +346,11 @@ public class PlayerGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setUser(UserAccount user){
+        this.currentUser = user;
+    }
+            
+    
     private void btnNewPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewPlaylistActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNewPlaylistActionPerformed
@@ -331,6 +366,18 @@ public class PlayerGUI extends javax.swing.JFrame {
     private void mnuLibraryAddSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLibraryAddSongActionPerformed
         AddSongDialog asd = new AddSongDialog();
     }//GEN-LAST:event_mnuLibraryAddSongActionPerformed
+
+    private void mnuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLoginActionPerformed
+        new LoginForm(this).setVisible(true);
+    }//GEN-LAST:event_mnuLoginActionPerformed
+
+    private void mnuLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLogoutActionPerformed
+        System.out.println(currentUser.toString());
+    }//GEN-LAST:event_mnuLogoutActionPerformed
+
+    private void mnuFileCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFileCloseActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_mnuFileCloseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -390,6 +437,9 @@ public class PlayerGUI extends javax.swing.JFrame {
     private javax.swing.JMenu mnuLibrary;
     private javax.swing.JMenuItem mnuLibraryAddPlaylist;
     private javax.swing.JMenuItem mnuLibraryAddSong;
+    private javax.swing.JMenuItem mnuLogin;
+    private javax.swing.JMenuItem mnuLogout;
+    private javax.swing.JMenu mnuUser;
     private javax.swing.JSlider sldCurrentPos;
     private javax.swing.JTable tblLibrary;
     private javax.swing.JTable tblPlaylists;

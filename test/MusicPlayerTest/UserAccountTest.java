@@ -11,6 +11,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 
 /**
  *
@@ -37,27 +39,28 @@ public class UserAccountTest {
     public void tearDown() {
     }
     
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     @Test
     public void createUserAccountTest(){
-        UserAccount testAccount = new UserAccount("TurkeyJoe", "tj1982", "thurman8r82@hotmail.com");
+        UserAccount testAccount = new UserAccount("TurkeyJoe", "$tj1982", "thurman8r82@hotmail.com");
         assertEquals("TurkeyJoe", testAccount.username());
-        assertEquals("tj1982", testAccount.password());
+        assertEquals("$tj1982", testAccount.password());
         assertEquals("thurman8r82@hotmail.com", testAccount.email());
-
     }
     
     @Test
-    public void validatePasswordTest(){
-        assertTrue(UserAccount.validatePassword("$tj1982"));
-        assertFalse(UserAccount.validatePassword("1982"));
-        assertFalse(UserAccount.validatePassword("tjnoblit"));
-        assertFalse(UserAccount.validatePassword("$!tjn"));
-        assertFalse(UserAccount.validatePassword("19$82"));
-        assertTrue(UserAccount.validatePassword("TJ-1982"));
+    public void createAccountPasswordException(){
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Invalid Password");
+        new UserAccount("TurkeyJoe", "tj1982", "thurman8r82@hotmail.com");
     }
     
     @Test
-    public void validateEmailTest(){
-        assertTrue(UserAccount.validateEmail("thurman8r82@hotmail.com"));
+    public void createAccountEmailException(){
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Invalid Email Address");
+        new UserAccount("TurkeyJoe", "$tj1982", "thurman8r82@hotmail.cm");
     }
 }

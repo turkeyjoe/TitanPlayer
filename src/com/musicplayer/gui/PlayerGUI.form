@@ -13,6 +13,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Close"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuFileCloseActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -36,6 +39,29 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuLibraryAddPlaylistActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="mnuUser">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="User"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuLogin">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Login"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuLoginActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuLogout">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Logout"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuLogoutActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

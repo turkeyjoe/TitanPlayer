@@ -4,20 +4,27 @@
  */
 package com.musicplayer.gui;
 
+import com.musicplayer.bll.UserAccount;
 import java.util.regex.*;
+import javax.swing.JOptionPane;
 /**
  *
  * @author owner
  */
-public class UserAccountCreation extends javax.swing.JFrame {
-
+public class LoginForm extends javax.swing.JFrame {
+    PlayerGUI mainForm;
     /**
      * Creates new form UserAccountCreation
      */
-    public UserAccountCreation() {
+    public LoginForm(PlayerGUI gui) {
+        this.mainForm = gui;
         initComponents();
     }
 
+    public LoginForm() {
+        //this.mainForm = gui;
+        initComponents();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,25 +37,27 @@ public class UserAccountCreation extends javax.swing.JFrame {
         txtUsername = new javax.swing.JTextField();
         txtPassword = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
-        btnCreate = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        btnLogin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        btnCreate.setText("Create Account");
-        btnCreate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateActionPerformed(evt);
-            }
-        });
+        setTitle("Login");
+        setResizable(false);
 
         jLabel1.setText("Username");
 
         jLabel2.setText("Password");
 
         jLabel3.setText("Email");
+
+        btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,11 +71,14 @@ public class UserAccountCreation extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtEmail)
                     .addComponent(txtPassword)
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(96, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLogin)
+                .addGap(121, 121, 121))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -83,17 +95,20 @@ public class UserAccountCreation extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addComponent(btnCreate)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnLogin)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCreateActionPerformed
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        //Validate user account exists
+        mainForm.setUser(new UserAccount(txtUsername.getText(), txtPassword.getText(), txtEmail.getText()));
+        mainForm.setTitle("Titan Player - " + txtUsername.getText());
+        this.dispose();
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -112,25 +127,25 @@ public class UserAccountCreation extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UserAccountCreation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UserAccountCreation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UserAccountCreation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UserAccountCreation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UserAccountCreation().setVisible(true);
+                new LoginForm().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
