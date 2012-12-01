@@ -41,7 +41,7 @@ public class Library {
         Collections.sort(songs, new Comparator<Song>() {
             @Override
             public int compare(Song s1, Song s2) {
-                return s1.getTitle().compareToIgnoreCase(s2.getTitle());
+                return s1.title().compareToIgnoreCase(s2.title());
             }
         });
     }
@@ -50,7 +50,7 @@ public class Library {
         Collections.sort(songs, new Comparator<Song>() {
             @Override
             public int compare(Song s1, Song s2) {
-                return s1.getArtist().compareToIgnoreCase(s2.getArtist());
+                return s1.artist().compareToIgnoreCase(s2.artist());
             }
         });
     }

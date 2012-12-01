@@ -11,22 +11,28 @@
 package com.musicplayer.gui;
 
 import com.musicplayer.bll.AddSongDialog;
-import com.musicplayer.bll.MusicFileFilter;
 import com.musicplayer.bll.UserAccount;
-import javax.swing.JFileChooser;
 
 /**
  *
  * @author TJ
  */
 public class PlayerGUI extends javax.swing.JFrame {
-
+    
     private UserAccount currentUser;
+    private static PlayerGUI gui;
+    
     /** Creates new form PlayerGUI */
-    public PlayerGUI() {
+    private PlayerGUI() {
         initComponents();
     }
 
+    public static PlayerGUI getInstance() {
+        if (gui == null){
+            gui = new PlayerGUI();
+        }
+        return gui;
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -346,9 +352,9 @@ public class PlayerGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setUser(UserAccount user){
+    /*public void setUser(UserAccount user){
         this.currentUser = user;
-    }
+    }*/
             
     
     private void btnNewPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewPlaylistActionPerformed
@@ -356,7 +362,7 @@ public class PlayerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNewPlaylistActionPerformed
 
     private void btnAddToLibraryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToLibraryActionPerformed
-        // TODO add your handling code here:
+        new AddSongDialog().showDialog();
     }//GEN-LAST:event_btnAddToLibraryActionPerformed
 
     private void mnuLibraryAddPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLibraryAddPlaylistActionPerformed
@@ -364,15 +370,16 @@ public class PlayerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuLibraryAddPlaylistActionPerformed
 
     private void mnuLibraryAddSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLibraryAddSongActionPerformed
-        AddSongDialog asd = new AddSongDialog();
+        new AddSongDialog().showDialog();
     }//GEN-LAST:event_mnuLibraryAddSongActionPerformed
 
     private void mnuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLoginActionPerformed
-        new LoginForm(this).setVisible(true);
+        //new LoginForm(this).setVisible(true);
+        LoginForm.getInstance().setVisible(true);
     }//GEN-LAST:event_mnuLoginActionPerformed
 
     private void mnuLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLogoutActionPerformed
-        System.out.println(currentUser.toString());
+        //System.out.println(currentUser.toString());
     }//GEN-LAST:event_mnuLogoutActionPerformed
 
     private void mnuFileCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFileCloseActionPerformed

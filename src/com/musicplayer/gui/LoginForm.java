@@ -4,26 +4,31 @@
  */
 package com.musicplayer.gui;
 
-import com.musicplayer.bll.UserAccount;
 import java.util.regex.*;
-import javax.swing.JOptionPane;
 /**
  *
  * @author owner
  */
 public class LoginForm extends javax.swing.JFrame {
-    PlayerGUI mainForm;
+    //PlayerGUI mainForm;
+    private static LoginForm logForm;
     /**
      * Creates new form UserAccountCreation
      */
-    public LoginForm(PlayerGUI gui) {
+    /*public LoginForm(PlayerGUI gui) {
         this.mainForm = gui;
         initComponents();
-    }
+    }*/
 
-    public LoginForm() {
-        //this.mainForm = gui;
+    private LoginForm() {
         initComponents();
+    }
+    
+    public static LoginForm getInstance() {
+        if (logForm == null){
+            logForm = new LoginForm();
+        }
+        return logForm;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,7 +47,7 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Login");
         setResizable(false);
 
@@ -105,8 +110,8 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         //Validate user account exists
-        mainForm.setUser(new UserAccount(txtUsername.getText(), txtPassword.getText(), txtEmail.getText()));
-        mainForm.setTitle("Titan Player - " + txtUsername.getText());
+        //mainForm.setUser(new UserAccount(txtUsername.getText(), txtPassword.getText(), txtEmail.getText()));
+        //mainForm.setTitle("Titan Player - " + txtUsername.getText());
         this.dispose();
     }//GEN-LAST:event_btnLoginActionPerformed
 

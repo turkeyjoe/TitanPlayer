@@ -7,6 +7,8 @@ package MusicPlayerTest;
 import com.musicplayer.bll.Library;
 import com.musicplayer.bll.Playlist;
 import com.musicplayer.bll.Song;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,7 +21,8 @@ import static org.junit.Assert.*;
  * @author TJ
  */
 public class PlaylistTest {
-
+    Path path = Paths.get("c:\\path\\");
+    
     public PlaylistTest() {
     }
 
@@ -49,14 +52,14 @@ public class PlaylistTest {
     @Test
     public void addSongToPlaylistTest() {
         Playlist pl = new Playlist("My Music");
-        pl.addSong(new Song("Send The Pain Below", "Chevelle"));
+        pl.addSong(new Song("Send The Pain Below", "Chevelle", path));
         assertEquals(1, pl.songCount());
     }
 
     @Test
     public void addSongFromLibraryTest() {
         Library myLibrary = new Library();
-        myLibrary.addSong(new Song("The Sign", "Ace of Base"));
+        myLibrary.addSong(new Song("The Sign", "Ace of Base", path));
         Playlist myPlaylist = new Playlist("Middle School");
         myPlaylist.addSong(myLibrary.getSong(0));
         assertEquals(1, myPlaylist.songCount());
