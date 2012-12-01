@@ -11,6 +11,8 @@
 package com.musicplayer.gui;
 
 import com.musicplayer.bll.AddSongDialog;
+import com.musicplayer.bll.Library;
+import com.musicplayer.bll.LibraryRepository;
 import com.musicplayer.bll.UserAccount;
 
 /**
@@ -20,11 +22,14 @@ import com.musicplayer.bll.UserAccount;
 public class PlayerGUI extends javax.swing.JFrame {
     
     private UserAccount currentUser;
+    private Library currentLibrary;
+    private LibraryRepository repo;
     private static PlayerGUI gui;
     
     /** Creates new form PlayerGUI */
     private PlayerGUI() {
         initComponents();
+        repo = new LibraryRepository();
     }
 
     public static PlayerGUI getInstance() {
@@ -32,6 +37,24 @@ public class PlayerGUI extends javax.swing.JFrame {
             gui = new PlayerGUI();
         }
         return gui;
+    }
+    
+    public void loadLibrary(){
+        this.currentLibrary = repo.getUserLibrary(currentUser);
+        //tblLibrary.setModel();
+    }
+    
+    public void setUser(UserAccount user){
+        this.currentUser = user;
+        loadLibrary();
+    }
+    
+    public Library currentLibrary(){
+        return this.currentLibrary;
+    }
+    
+    public UserAccount getCurrentUser(){
+        return currentUser;
     }
     /** This method is called from within the constructor to
      * initialize the form.

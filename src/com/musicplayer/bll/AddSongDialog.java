@@ -4,6 +4,7 @@
  */
 package com.musicplayer.bll;
 
+import com.musicplayer.gui.PlayerGUI;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -40,8 +41,10 @@ public class AddSongDialog {
                 MP3File mp3 = (MP3File)AudioFileIO.read(song);
                 Tag tag = mp3.getTag();
                 Song newSong = new Song(tag.getFirst(FieldKey.TITLE), tag.getFirst(FieldKey.ARTIST), Paths.get(song.getPath()));
-                
+                PlayerGUI.getInstance().currentLibrary().addSong(newSong);
                 System.out.println("Song selected: " + newSong.toString());
+                System.out.println("Library: ");
+                PlayerGUI.getInstance().currentLibrary().printLibrary();
             } catch (CannotReadException ex) {
                 Logger.getLogger(AddSongDialog.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {

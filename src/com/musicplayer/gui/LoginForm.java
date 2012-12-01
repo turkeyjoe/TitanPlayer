@@ -4,32 +4,37 @@
  */
 package com.musicplayer.gui;
 
+import com.musicplayer.bll.UserAccount;
 import java.util.regex.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author owner
  */
 public class LoginForm extends javax.swing.JFrame {
     //PlayerGUI mainForm;
+
     private static LoginForm logForm;
+
     /**
      * Creates new form UserAccountCreation
      */
     /*public LoginForm(PlayerGUI gui) {
-        this.mainForm = gui;
-        initComponents();
-    }*/
-
+     this.mainForm = gui;
+     initComponents();
+     }*/
     private LoginForm() {
         initComponents();
     }
-    
+
     public static LoginForm getInstance() {
-        if (logForm == null){
+        if (logForm == null) {
             logForm = new LoginForm();
         }
         return logForm;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,6 +51,7 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
+        btnCreateAccount = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Login");
@@ -64,6 +70,13 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
+        btnCreateAccount.setText("Create Account");
+        btnCreateAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateAccountActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,19 +84,22 @@ public class LoginForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtEmail)
-                    .addComponent(txtPassword)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(96, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnLogin)
-                .addGap(121, 121, 121))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtEmail)
+                            .addComponent(txtPassword)
+                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(btnLogin)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCreateAccount)))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,21 +116,37 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnLogin)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLogin)
+                    .addComponent(btnCreateAccount))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        //Validate user account exists
-        //mainForm.setUser(new UserAccount(txtUsername.getText(), txtPassword.getText(), txtEmail.getText()));
-        //mainForm.setTitle("Titan Player - " + txtUsername.getText());
-        this.dispose();
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    private void btnCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAccountActionPerformed
+        try {
+            UserAccount user = new UserAccount(txtUsername.getText(), txtPassword.getText(), txtEmail.getText());
+            PlayerGUI.getInstance().setUser(user);
+            System.out.println(PlayerGUI.getInstance().getCurrentUser());
+            clearForm();
+            this.dispose();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Account Creation Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnCreateAccountActionPerformed
+
+    private void clearForm(){
+        txtUsername.setText(null);
+        txtPassword.setText(null);
+        txtEmail.setText(null);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -150,6 +182,7 @@ public class LoginForm extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCreateAccount;
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -159,7 +192,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 
-    public boolean validatePassword(String pass){
+    public boolean validatePassword(String pass) {
         Pattern p = Pattern.compile("\\d+");
         Matcher m = p.matcher(pass);
         return m.matches();
