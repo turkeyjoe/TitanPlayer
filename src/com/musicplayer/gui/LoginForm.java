@@ -5,6 +5,7 @@
 package com.musicplayer.gui;
 
 import com.musicplayer.bll.UserAccount;
+import com.musicplayer.bll.UserRepository;
 import java.util.regex.*;
 import javax.swing.JOptionPane;
 
@@ -13,28 +14,25 @@ import javax.swing.JOptionPane;
  * @author owner
  */
 public class LoginForm extends javax.swing.JFrame {
-    PlayerGUI gui;
+    private PlayerGUI gui;
+    private UserRepository userRepo;
     
-    //private static LoginForm logForm;
+    //private static LoginForm logForm = null;
 
     /**
      * Creates new form UserAccountCreation
      */
-    /*public LoginForm(PlayerGUI gui) {
-     this.mainForm = gui;
+    public LoginForm(PlayerGUI gui, UserRepository users) {
+     this.gui = gui;
+     userRepo = users;
      initComponents();
-     }*/
+     }
     
-    public LoginForm(){
-        initComponents();
-    }
-    
-    public LoginForm(PlayerGUI gui) {
-        this.gui = gui;
+    private LoginForm(){
         initComponents();
     }
 
-    /*public static LoginForm getInstance() {
+    /*public static LoginForm getInstance(PlayerGUI gui) {
         if (logForm == null) {
             logForm = new LoginForm();
         }
@@ -133,14 +131,24 @@ public class LoginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        try {
+            UserAccount user = userRepo.getUser(txtUsername.getText());
+            if (user.validateLogin(txtPassword.getText(), txtEmail.getText())){
+                gui.setUser(user);
+                this.dispose();
+            }
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAccountActionPerformed
         try {
             UserAccount user = new UserAccount(txtUsername.getText(), txtPassword.getText(), txtEmail.getText());
+            userRepo.addUser(user);
             gui.setUser(user);
-            //System.out.println(PlayerGUI.getInstance().getCurrentUser());
-            clearForm();
+            userRepo.printRepo();
+            //clearForm();
             this.dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Account Creation Error", JOptionPane.ERROR_MESSAGE);

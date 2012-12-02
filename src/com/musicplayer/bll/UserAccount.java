@@ -69,6 +69,17 @@ public class UserAccount {
         }
         return false;
     }
+    
+    public boolean validateLogin(String pass, String email) 
+        throws Exception {
+        if (!this.password.equals(pass)){
+            throw new Exception("Invalid Password");
+        }
+        if (!this.email.equals(email)){
+            throw new Exception("Invalid Email");
+        }
+        return true;
+    }
 
     @Override
     public String toString() {

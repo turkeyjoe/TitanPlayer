@@ -73,4 +73,12 @@ public class UserAccountTest {
         assertEquals(acct1.hashCode(), acct2.hashCode());
         assertTrue(acct1.equals(acct3));
     }
+    
+    @Test(expected=Exception.class)
+    public void validateLoginTest() throws Exception{
+        UserAccount test = new UserAccount("TJN", "$tj1982", "a@b.com");
+        assertTrue(test.validateLogin("$tj1982", "a@b.com"));
+        test.validateLogin("tjn", "a@b.com");
+        test.validateLogin("$tj1982", "a@c.com");       
+    }
 }
