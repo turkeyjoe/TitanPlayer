@@ -135,6 +135,7 @@ public class LoginForm extends javax.swing.JFrame {
             UserAccount user = userRepo.getUser(txtUsername.getText());
             if (user.validateLogin(txtPassword.getText(), txtEmail.getText())){
                 gui.setUser(user);
+                gui.setTitle("Titan Player - " + user.username());
                 this.dispose();
             }
         } catch (Exception ex){
@@ -147,6 +148,7 @@ public class LoginForm extends javax.swing.JFrame {
             UserAccount user = new UserAccount(txtUsername.getText(), txtPassword.getText(), txtEmail.getText());
             userRepo.addUser(user);
             gui.setUser(user);
+            gui.setTitle("Titan Player - " + user.username());
             userRepo.printRepo();
             //clearForm();
             this.dispose();
@@ -155,11 +157,11 @@ public class LoginForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCreateAccountActionPerformed
 
-    private void clearForm(){
+    /*private void clearForm(){
         txtUsername.setText(null);
         txtPassword.setText(null);
         txtEmail.setText(null);
-    }
+    }*/
     
     /**
      * @param args the command line arguments

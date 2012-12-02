@@ -40,10 +40,10 @@ public class UserRepositoryTest {
     
     @Test
     public void addUserToRepoTest() throws Exception{
-        UserRepository repo = new UserRepository();
-        UserAccount acct = new UserAccount("TurkeyJoe", "$tj1982", "a@b.com");
+        UserRepository repo = new UserRepository(); //built in user for testing
+        UserAccount acct = new UserAccount("TJN", "$tj82", "a@b.com");
         repo.addUser(acct);
-        assertEquals(1, repo.userCount());
-        assertSame(acct, repo.getUser("TurkeyJoe"));
+        assertEquals(2, repo.userCount());
+        assertSame(acct, repo.getUser("TJN"));
     }
 }

@@ -7,6 +7,7 @@ package com.musicplayer.bll;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -30,8 +31,14 @@ public class Library {
         songs.add(song);
     }
 
-    public void removeSong(Song song) {
-        songs.remove(song);
+    public void removeSong(String artist, String title) {
+        Iterator<Song> it = songs.iterator();
+        while(it.hasNext()){
+            Song s = it.next();
+            if (s.artist().equals(artist) && s.title().equals(title)){
+                it.remove();
+            }
+        }
     }
 
     public Song getSong(int i) {

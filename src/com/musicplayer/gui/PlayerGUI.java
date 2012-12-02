@@ -12,7 +12,6 @@ package com.musicplayer.gui;
 
 import com.musicplayer.bll.AddSongDialog;
 import com.musicplayer.bll.Library;
-import com.musicplayer.bll.LibraryDataModel;
 import com.musicplayer.bll.LibraryRepository;
 import com.musicplayer.bll.Playlist;
 import com.musicplayer.bll.Song;
@@ -52,7 +51,7 @@ public class PlayerGUI extends javax.swing.JFrame {
     public void loadLibrary() {
         this.currentLibrary = repo.getUserLibrary(currentUser);
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-
+        model.setRowCount(0);
         //Object[][] temp = new Object[currentLibrary.songCount()][2];
         Song[] songs = currentLibrary.getSongs();
         for (int i = 0; i < songs.length; i++) {
@@ -229,6 +228,11 @@ public class PlayerGUI extends javax.swing.JFrame {
         });
 
         btnRemoveFromLibrary.setText("Remove From Library");
+        btnRemoveFromLibrary.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveFromLibraryActionPerformed(evt);
+            }
+        });
 
         btnNewPlaylist.setText("New Playlist");
         btnNewPlaylist.addActionListener(new java.awt.event.ActionListener() {
@@ -381,7 +385,9 @@ public class PlayerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNewPlaylistActionPerformed
 
     private void btnAddToLibraryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToLibraryActionPerformed
-        new AddSongDialog().showDialog(this);
+        if (currentUser != null) {
+            new AddSongDialog().showDialog(this);
+        }
     }//GEN-LAST:event_btnAddToLibraryActionPerformed
 
     private void mnuLibraryAddPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLibraryAddPlaylistActionPerformed
@@ -389,7 +395,9 @@ public class PlayerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuLibraryAddPlaylistActionPerformed
 
     private void mnuLibraryAddSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLibraryAddSongActionPerformed
-        new AddSongDialog().showDialog(this);
+        if (currentUser != null) {
+            new AddSongDialog().showDialog(this);
+        }
     }//GEN-LAST:event_mnuLibraryAddSongActionPerformed
 
     private void mnuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLoginActionPerformed
@@ -397,11 +405,24 @@ public class PlayerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuLoginActionPerformed
 
     private void mnuLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLogoutActionPerformed
+        currentUser = null;
+        currentLibrary = null;
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        setTitle("Titan Player");
     }//GEN-LAST:event_mnuLogoutActionPerformed
 
     private void mnuFileCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFileCloseActionPerformed
         this.dispose();
     }//GEN-LAST:event_mnuFileCloseActionPerformed
+
+    private void btnRemoveFromLibraryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFromLibraryActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow != -1) {
+            currentLibrary.removeSong(jTable1.getValueAt(selectedRow, 0).toString(), jTable1.getValueAt(selectedRow, 1).toString());
+            loadLibrary();
+        }
+    }//GEN-LAST:event_btnRemoveFromLibraryActionPerformed
 
     /**
      * @param args the command line arguments
