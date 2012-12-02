@@ -28,11 +28,14 @@ public class LibraryRepository {
     
     public Library getUserLibrary(UserAccount user) {
         Library userLibrary = new Library();
-        for (int i = 0; i < libraries.size(); i++) {
-            if (libraries.get(i).getUser() == user) {
-                userLibrary = libraries.get(i);
+        for (Library l : libraries) {
+            if (l.getUser() == user) {
+                userLibrary = l;
+                return userLibrary;
             }
         }
+        userLibrary.addUser(user);
+        libraries.add(userLibrary);
         return userLibrary;
     }
 }

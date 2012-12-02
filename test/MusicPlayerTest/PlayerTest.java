@@ -7,6 +7,7 @@ package MusicPlayerTest;
 import com.musicplayer.bll.Player;
 import com.musicplayer.bll.Playlist;
 import com.musicplayer.bll.Song;
+import com.musicplayer.gui.PlayerGUI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.After;
@@ -82,4 +83,11 @@ public class PlayerTest {
         myPlayer.stop();
         assertFalse(myPlayer.isPlaying());        
     }
+    
+    /*@Test
+    public void singletonTest(){
+        PlayerGUI gui1 = PlayerGUI.getInstance();
+        PlayerGUI gui2 = PlayerGUI.getInstance();
+        assertSame(gui1, gui2);
+    }*/
 }

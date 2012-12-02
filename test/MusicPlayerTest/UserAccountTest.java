@@ -63,4 +63,14 @@ public class UserAccountTest {
         thrown.expectMessage("Invalid Email Address");
         new UserAccount("TurkeyJoe", "$tj1982", "thurman8r82@hotmail.cm");
     }
+    
+    @Test
+    public void accountsEqualTest(){
+        UserAccount acct1 = new UserAccount("TJN", "$tj1982", "a@b.com");
+        UserAccount acct2 = new UserAccount("TJN", "$tj1982", "a@b.com");
+        UserAccount acct3 = new UserAccount("TJN", "$45lh", "b@c.com");
+        assertTrue(acct1.equals(acct2));
+        assertEquals(acct1.hashCode(), acct2.hashCode());
+        assertTrue(acct1.equals(acct3));
+    }
 }

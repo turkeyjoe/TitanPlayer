@@ -84,5 +84,7 @@ public class LibraryTest {
         assertEquals("Chevelle", myLibrary.getSong(0).artist());
         myLibrary.sortByArtist();
         assertEquals("Ace of Base", myLibrary.getSong(0).artist());
+        //Song[] test = myLibrary.getSongs();
+        //assertEquals(3, test.length);
     }
 }

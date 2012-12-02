@@ -69,9 +69,35 @@ public class UserAccount {
         }
         return false;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return this.username;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + (this.username != null ? this.username.hashCode() : 0);
+        hash = 59 * hash + (this.password != null ? this.password.hashCode() : 0);
+        hash = 59 * hash + (this.email != null ? this.email.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final UserAccount other = (UserAccount) obj;
+        if ((this.username == null) ? (other.username != null) : !this.username.equals(other.username)) {
+            return false;
+        }
+        return true;
+    }
+
+
 }

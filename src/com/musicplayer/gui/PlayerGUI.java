@@ -12,8 +12,11 @@ package com.musicplayer.gui;
 
 import com.musicplayer.bll.AddSongDialog;
 import com.musicplayer.bll.Library;
+import com.musicplayer.bll.LibraryDataModel;
 import com.musicplayer.bll.LibraryRepository;
+import com.musicplayer.bll.Song;
 import com.musicplayer.bll.UserAccount;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,24 +27,37 @@ public class PlayerGUI extends javax.swing.JFrame {
     private UserAccount currentUser;
     private Library currentLibrary;
     private LibraryRepository repo;
-    private static PlayerGUI gui;
+    //private static PlayerGUI gui;
     
     /** Creates new form PlayerGUI */
     private PlayerGUI() {
         initComponents();
         repo = new LibraryRepository();
+        //jTable1.setModel(new LibraryDataModel());
     }
 
-    public static PlayerGUI getInstance() {
+    /*public static PlayerGUI getInstance() {
         if (gui == null){
             gui = new PlayerGUI();
         }
         return gui;
-    }
+    }*/
     
     public void loadLibrary(){
         this.currentLibrary = repo.getUserLibrary(currentUser);
-        //tblLibrary.setModel();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        
+        //Object[][] temp = new Object[currentLibrary.songCount()][2];
+        Song[] songs = currentLibrary.getSongs();
+        for (int i = 0; i < songs.length; i++){
+            model.addRow(new Object[]{songs[i].artist(), songs[i].title()});
+        }
+    }
+    
+    public void updateLibrary(Object[] o){
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.addRow(o);
+        //loadLibrary();
     }
     
     public void setUser(UserAccount user){
@@ -74,8 +90,6 @@ public class PlayerGUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblLibrary = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         listPlaylist = new javax.swing.JList();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -84,6 +98,8 @@ public class PlayerGUI extends javax.swing.JFrame {
         btnRemoveFromLibrary = new javax.swing.JButton();
         btnNewPlaylist = new javax.swing.JButton();
         btnDeletePlaylist = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuFile = new javax.swing.JMenu();
         mnuFileClose = new javax.swing.JMenuItem();
@@ -144,7 +160,7 @@ public class PlayerGUI extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,45 +179,8 @@ public class PlayerGUI extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
-
-        tblLibrary.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Artist", "Album", "Track Title", "Length"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblLibrary.setShowHorizontalLines(false);
-        tblLibrary.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tblLibrary);
-        tblLibrary.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         listPlaylist.setBackground(new java.awt.Color(240, 240, 240));
         listPlaylist.setModel(new javax.swing.AbstractListModel() {
@@ -268,6 +247,24 @@ public class PlayerGUI extends javax.swing.JFrame {
 
         btnDeletePlaylist.setText("Delete Playlist");
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Artist", "Title"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(jTable1);
+
         mnuFile.setText("File");
 
         mnuFileClose.setText("Close");
@@ -330,26 +327,26 @@ public class PlayerGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnAddToLibrary)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnRemoveFromLibrary))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAddToLibrary)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRemoveFromLibrary))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnNewPlaylist)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnDeletePlaylist))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(189, 189, 189)
+                        .addComponent(btnDeletePlaylist)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -357,18 +354,18 @@ public class PlayerGUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNewPlaylist)
-                    .addComponent(btnDeletePlaylist)
+                    .addComponent(btnAddToLibrary)
                     .addComponent(btnRemoveFromLibrary)
-                    .addComponent(btnAddToLibrary))
+                    .addComponent(btnNewPlaylist)
+                    .addComponent(btnDeletePlaylist))
                 .addContainerGap())
         );
 
@@ -385,7 +382,7 @@ public class PlayerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNewPlaylistActionPerformed
 
     private void btnAddToLibraryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToLibraryActionPerformed
-        new AddSongDialog().showDialog();
+        new AddSongDialog().showDialog(this);
     }//GEN-LAST:event_btnAddToLibraryActionPerformed
 
     private void mnuLibraryAddPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLibraryAddPlaylistActionPerformed
@@ -393,12 +390,12 @@ public class PlayerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuLibraryAddPlaylistActionPerformed
 
     private void mnuLibraryAddSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLibraryAddSongActionPerformed
-        new AddSongDialog().showDialog();
+        new AddSongDialog().showDialog(this);
     }//GEN-LAST:event_mnuLibraryAddSongActionPerformed
 
     private void mnuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLoginActionPerformed
-        //new LoginForm(this).setVisible(true);
-        LoginForm.getInstance().setVisible(true);
+        new LoginForm(this).setVisible(true);
+        //LoginForm.getInstance().setVisible(true);
     }//GEN-LAST:event_mnuLoginActionPerformed
 
     private void mnuLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLogoutActionPerformed
@@ -455,9 +452,10 @@ public class PlayerGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblCurrentTime;
     private javax.swing.JLabel lblCurrentTrack;
     private javax.swing.JLabel lblEndTime;
@@ -471,7 +469,6 @@ public class PlayerGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuLogout;
     private javax.swing.JMenu mnuUser;
     private javax.swing.JSlider sldCurrentPos;
-    private javax.swing.JTable tblLibrary;
     private javax.swing.JTable tblPlaylists;
     // End of variables declaration//GEN-END:variables
 }

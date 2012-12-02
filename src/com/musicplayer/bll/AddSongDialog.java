@@ -25,39 +25,59 @@ import org.jaudiotagger.tag.TagException;
  * @author owner
  */
 public class AddSongDialog {
+    private PlayerGUI gui;
     private JFileChooser ch;
-    
-    public void showDialog(){
+
+    public void showDialog(PlayerGUI gui) {
+        this.gui = gui;
         ch = new JFileChooser();
         ch.setFileFilter(new MusicFileFilter());
         int returnVal = ch.showDialog(ch, "Add Song");
-        addSong(returnVal);        
+        addSong(returnVal);
     }
-    
-    private void addSong(int returnVal){
-        if (returnVal == JFileChooser.APPROVE_OPTION){
-            try {
-                File song = ch.getSelectedFile();
-                MP3File mp3 = (MP3File)AudioFileIO.read(song);
-                Tag tag = mp3.getTag();
-                Song newSong = new Song(tag.getFirst(FieldKey.TITLE), tag.getFirst(FieldKey.ARTIST), Paths.get(song.getPath()));
-                PlayerGUI.getInstance().currentLibrary().addSong(newSong);
+
+    private void addSong(int returnVal) {
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            Song newSong = createSong();
+            if (newSong != null) {
+                gui.currentLibrary().addSong(newSong);
+                gui.updateLibrary(new Object[]{newSong.artist(), newSong.title()});
+                //testing output
                 System.out.println("Song selected: " + newSong.toString());
-                System.out.println("Library: ");
-                PlayerGUI.getInstance().currentLibrary().printLibrary();
-            } catch (CannotReadException ex) {
-                Logger.getLogger(AddSongDialog.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(AddSongDialog.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (TagException ex) {
-                Logger.getLogger(AddSongDialog.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ReadOnlyFileException ex) {
-                Logger.getLogger(AddSongDialog.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InvalidAudioFrameException ex) {
-                Logger.getLogger(AddSongDialog.class.getName()).log(Level.SEVERE, null, ex);
+                //System.out.println("Library: " + PlayerGUI.getInstance().currentLibrary().getUser());
+                
+            } else {
+                System.out.println("Failed to create song");
             }
         } else {
             System.out.println("No song selected");
         }
+    }
+
+    private Song createSong() {
+        try {
+            File song = ch.getSelectedFile();
+            MP3File mp3 = (MP3File) AudioFileIO.read(song);
+            Tag tag = mp3.getTag();
+            Song newSong = new Song(tag.getFirst(FieldKey.TITLE),
+                    tag.getFirst(FieldKey.ARTIST), Paths.get(song.getPath()));
+            return newSong;
+        } catch (CannotReadException ex) {
+            Logger.getLogger(AddSongDialog.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(AddSongDialog.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (TagException ex) {
+            Logger.getLogger(AddSongDialog.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (ReadOnlyFileException ex) {
+            Logger.getLogger(AddSongDialog.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidAudioFrameException ex) {
+            Logger.getLogger(AddSongDialog.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

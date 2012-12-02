@@ -13,9 +13,9 @@ import javax.swing.JOptionPane;
  * @author owner
  */
 public class LoginForm extends javax.swing.JFrame {
-    //PlayerGUI mainForm;
-
-    private static LoginForm logForm;
+    PlayerGUI gui;
+    
+    //private static LoginForm logForm;
 
     /**
      * Creates new form UserAccountCreation
@@ -24,16 +24,22 @@ public class LoginForm extends javax.swing.JFrame {
      this.mainForm = gui;
      initComponents();
      }*/
-    private LoginForm() {
+    
+    public LoginForm(){
+        initComponents();
+    }
+    
+    public LoginForm(PlayerGUI gui) {
+        this.gui = gui;
         initComponents();
     }
 
-    public static LoginForm getInstance() {
+    /*public static LoginForm getInstance() {
         if (logForm == null) {
             logForm = new LoginForm();
         }
         return logForm;
-    }
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -132,8 +138,8 @@ public class LoginForm extends javax.swing.JFrame {
     private void btnCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAccountActionPerformed
         try {
             UserAccount user = new UserAccount(txtUsername.getText(), txtPassword.getText(), txtEmail.getText());
-            PlayerGUI.getInstance().setUser(user);
-            System.out.println(PlayerGUI.getInstance().getCurrentUser());
+            gui.setUser(user);
+            //System.out.println(PlayerGUI.getInstance().getCurrentUser());
             clearForm();
             this.dispose();
         } catch (Exception ex) {
