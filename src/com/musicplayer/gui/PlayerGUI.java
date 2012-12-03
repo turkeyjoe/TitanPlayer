@@ -41,21 +41,21 @@ public class PlayerGUI extends javax.swing.JFrame {
     }
 
     public void loadLibrary() {
-        this.currentLibrary = repo.getUserLibrary(currentUser);
-        jTable1.setModel(new LibraryDataModel(currentLibrary));
+        this.currentLibrary = repo.getUserLibrary(currentUser);    
     }
-
+    
+    public void updateLibrary(){
+        tblLibrary.setModel(new LibraryDataModel(currentLibrary));
+    }
+    
     public void setUser(UserAccount user) {
         this.currentUser = user;
         loadLibrary();
+        updateLibrary();
     }
 
     public Library currentLibrary() {
         return this.currentLibrary;
-    }
-
-    public UserAccount getCurrentUser() {
-        return currentUser;
     }
 
     /**
@@ -85,7 +85,7 @@ public class PlayerGUI extends javax.swing.JFrame {
         btnNewPlaylist = new javax.swing.JButton();
         btnDeletePlaylist = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblLibrary = new javax.swing.JTable();
         txtPlaylistTitle = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuFile = new javax.swing.JMenu();
@@ -223,23 +223,8 @@ public class PlayerGUI extends javax.swing.JFrame {
 
         btnDeletePlaylist.setText("Delete Playlist");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Artist", "Title"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane4.setViewportView(jTable1);
+        tblLibrary.setModel(new LibraryDataModel(new Library()));
+        jScrollPane4.setViewportView(tblLibrary);
 
         mnuFile.setText("File");
 
@@ -387,7 +372,7 @@ public class PlayerGUI extends javax.swing.JFrame {
     private void mnuLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLogoutActionPerformed
         currentUser = null;
         currentLibrary = null;
-        jTable1.setModel(new LibraryDataModel(new Library()));
+        tblLibrary.setModel(new LibraryDataModel(new Library()));
         setTitle("Titan Player");
     }//GEN-LAST:event_mnuLogoutActionPerformed
 
@@ -396,10 +381,10 @@ public class PlayerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuFileCloseActionPerformed
 
     private void btnRemoveFromLibraryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFromLibraryActionPerformed
-        int selectedRow = jTable1.getSelectedRow();
+        int selectedRow = tblLibrary.getSelectedRow();
         if (selectedRow != -1) {
-            currentLibrary.removeSong(jTable1.getValueAt(selectedRow, 0).toString(), jTable1.getValueAt(selectedRow, 1).toString());
-            loadLibrary();
+            currentLibrary.removeSong(tblLibrary.getValueAt(selectedRow, 0).toString(), tblLibrary.getValueAt(selectedRow, 1).toString());
+            updateLibrary();
         }
     }//GEN-LAST:event_btnRemoveFromLibraryActionPerformed
 
@@ -451,7 +436,6 @@ public class PlayerGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblCurrentTime;
     private javax.swing.JLabel lblCurrentTrack;
     private javax.swing.JLabel lblEndTime;
@@ -465,6 +449,7 @@ public class PlayerGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuLogout;
     private javax.swing.JMenu mnuUser;
     private javax.swing.JSlider sldCurrentPos;
+    private javax.swing.JTable tblLibrary;
     private javax.swing.JTable tblPlaylists;
     private javax.swing.JTextField txtPlaylistTitle;
     // End of variables declaration//GEN-END:variables

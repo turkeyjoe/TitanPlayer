@@ -42,7 +42,7 @@ public class AddSongDialog {
             Song newSong = createSong();
             if (newSong != null) {
                 gui.currentLibrary().addSong(newSong);
-                gui.loadLibrary();
+                gui.updateLibrary();
             } else {
                 System.out.println("Failed to create song");
             }

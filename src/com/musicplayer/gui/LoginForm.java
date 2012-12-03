@@ -6,7 +6,6 @@ package com.musicplayer.gui;
 
 import com.musicplayer.bll.UserAccount;
 import com.musicplayer.bll.UserRepository;
-import java.util.regex.*;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,10 +17,6 @@ public class LoginForm extends javax.swing.JFrame {
     private PlayerGUI gui;
     private UserRepository userRepo;
 
-    //private static LoginForm logForm = null;
-    /**
-     * Creates new form UserAccountCreation
-     */
     public LoginForm(PlayerGUI gui, UserRepository users) {
         this.gui = gui;
         userRepo = users;
@@ -32,12 +27,6 @@ public class LoginForm extends javax.swing.JFrame {
         initComponents();
     }
 
-    /*public static LoginForm getInstance(PlayerGUI gui) {
-     if (logForm == null) {
-     logForm = new LoginForm();
-     }
-     return logForm;
-     }*/
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -202,10 +191,4 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
-
-    public boolean validatePassword(String pass) {
-        Pattern p = Pattern.compile("\\d+");
-        Matcher m = p.matcher(pass);
-        return m.matches();
-    }
 }
