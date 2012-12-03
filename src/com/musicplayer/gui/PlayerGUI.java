@@ -12,9 +12,9 @@ package com.musicplayer.gui;
 
 import com.musicplayer.bll.AddSongDialog;
 import com.musicplayer.bll.Library;
+import com.musicplayer.bll.LibraryDataModel;
 import com.musicplayer.bll.LibraryRepository;
 import com.musicplayer.bll.Playlist;
-import com.musicplayer.bll.Song;
 import com.musicplayer.bll.UserAccount;
 import com.musicplayer.bll.UserRepository;
 import javax.swing.JOptionPane;
@@ -30,7 +30,6 @@ public class PlayerGUI extends javax.swing.JFrame {
     private Library currentLibrary;
     private LibraryRepository repo;
     private UserRepository userRepo;
-    //private static PlayerGUI gui;
 
     /**
      * Creates new form PlayerGUI
@@ -39,30 +38,11 @@ public class PlayerGUI extends javax.swing.JFrame {
         initComponents();
         repo = new LibraryRepository();
         userRepo = new UserRepository();
-        //jTable1.setModel(new LibraryDataModel());
     }
 
-    /*public static PlayerGUI getInstance() {
-     if (gui == null){
-     gui = new PlayerGUI();
-     }
-     return gui;
-     }*/
     public void loadLibrary() {
         this.currentLibrary = repo.getUserLibrary(currentUser);
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
-        //Object[][] temp = new Object[currentLibrary.songCount()][2];
-        Song[] songs = currentLibrary.getSongs();
-        for (int i = 0; i < songs.length; i++) {
-            model.addRow(new Object[]{songs[i].artist(), songs[i].title()});
-        }
-    }
-
-    public void updateLibrary(Object[] o) {
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.addRow(o);
-        //loadLibrary();
+        jTable1.setModel(new LibraryDataModel(currentLibrary));
     }
 
     public void setUser(UserAccount user) {
@@ -407,8 +387,7 @@ public class PlayerGUI extends javax.swing.JFrame {
     private void mnuLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLogoutActionPerformed
         currentUser = null;
         currentLibrary = null;
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
+        jTable1.setModel(new LibraryDataModel(new Library()));
         setTitle("Titan Player");
     }//GEN-LAST:event_mnuLogoutActionPerformed
 

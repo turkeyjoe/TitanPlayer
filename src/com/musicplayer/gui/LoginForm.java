@@ -14,31 +14,30 @@ import javax.swing.JOptionPane;
  * @author owner
  */
 public class LoginForm extends javax.swing.JFrame {
+
     private PlayerGUI gui;
     private UserRepository userRepo;
-    
-    //private static LoginForm logForm = null;
 
+    //private static LoginForm logForm = null;
     /**
      * Creates new form UserAccountCreation
      */
     public LoginForm(PlayerGUI gui, UserRepository users) {
-     this.gui = gui;
-     userRepo = users;
-     initComponents();
-     }
-    
-    private LoginForm(){
+        this.gui = gui;
+        userRepo = users;
+        initComponents();
+    }
+
+    private LoginForm() {
         initComponents();
     }
 
     /*public static LoginForm getInstance(PlayerGUI gui) {
-        if (logForm == null) {
-            logForm = new LoginForm();
-        }
-        return logForm;
-    }*/
-
+     if (logForm == null) {
+     logForm = new LoginForm();
+     }
+     return logForm;
+     }*/
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -133,36 +132,32 @@ public class LoginForm extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         try {
             UserAccount user = userRepo.getUser(txtUsername.getText());
-            if (user.validateLogin(txtPassword.getText(), txtEmail.getText())){
+            if (user.validateLogin(txtPassword.getText(), txtEmail.getText())) {
                 gui.setUser(user);
                 gui.setTitle("Titan Player - " + user.username());
                 this.dispose();
             }
-        } catch (Exception ex){
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAccountActionPerformed
-        try {
-            UserAccount user = new UserAccount(txtUsername.getText(), txtPassword.getText(), txtEmail.getText());
-            userRepo.addUser(user);
-            gui.setUser(user);
-            gui.setTitle("Titan Player - " + user.username());
-            userRepo.printRepo();
-            //clearForm();
-            this.dispose();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Account Creation Error", JOptionPane.ERROR_MESSAGE);
+        if (userRepo.checkForUsername(txtUsername.getText())) {
+            try {
+                UserAccount user = new UserAccount(txtUsername.getText(), txtPassword.getText(), txtEmail.getText());
+                userRepo.addUser(user);
+                gui.setUser(user);
+                gui.setTitle("Titan Player - " + user.username());
+                this.dispose();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Account Creation Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Username already taken");
         }
     }//GEN-LAST:event_btnCreateAccountActionPerformed
 
-    /*private void clearForm(){
-        txtUsername.setText(null);
-        txtPassword.setText(null);
-        txtEmail.setText(null);
-    }*/
-    
     /**
      * @param args the command line arguments
      */

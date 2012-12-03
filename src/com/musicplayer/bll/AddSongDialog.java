@@ -25,6 +25,7 @@ import org.jaudiotagger.tag.TagException;
  * @author owner
  */
 public class AddSongDialog {
+
     private PlayerGUI gui;
     private JFileChooser ch;
 
@@ -41,11 +42,7 @@ public class AddSongDialog {
             Song newSong = createSong();
             if (newSong != null) {
                 gui.currentLibrary().addSong(newSong);
-                gui.updateLibrary(new Object[]{newSong.artist(), newSong.title()});
-                //testing output
-                System.out.println("Song selected: " + newSong.toString());
-                //System.out.println("Library: " + PlayerGUI.getInstance().currentLibrary().getUser());
-                
+                gui.loadLibrary();
             } else {
                 System.out.println("Failed to create song");
             }

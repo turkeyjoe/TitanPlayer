@@ -37,9 +37,12 @@ public class UserRepository {
         throw new Exception("User does not exist");
     }
     
-    public void printRepo(){
+    public boolean checkForUsername(String name){
         for (UserAccount a : users){
-            System.out.println(a.toString());
+            if (a.username().equals(name)){
+                return false;
+            }
         }
+        return true;
     }
 }

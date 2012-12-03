@@ -45,9 +45,8 @@ public class Library {
         return songs.get(i);
     }
 
-    public Song[] getSongs() {
-        Song[] out = songs.toArray(new Song[songs.size()]);  
-        return out;
+    public List<Song> getSongs() {
+        return songs;
     }
 
     public void addUser(UserAccount user) {

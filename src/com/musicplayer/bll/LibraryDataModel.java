@@ -4,6 +4,7 @@
  */
 package com.musicplayer.bll;
 
+import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -11,40 +12,39 @@ import javax.swing.table.AbstractTableModel;
  * @author TJ
  */
 public class LibraryDataModel extends AbstractTableModel {
+
     private String[] columnNames = {"Artist", "Title"};
-    private Object[][] data = {{"bob", "song"}};
-    
-    public LibraryDataModel(){
-        //data = loadData(lib);
+    private List data;
+
+    public LibraryDataModel(Library lib) {
+        data = lib.getSongs();
     }
-    
+
     @Override
     public int getRowCount() {
-        return data.length;
+        return data.size();
     }
 
     @Override
     public int getColumnCount() {
         return columnNames.length;
     }
-    
+
     @Override
-    public String getColumnName(int i){
+    public String getColumnName(int i) {
         return columnNames[i];
     }
-    
+
     @Override
     public Object getValueAt(int row, int col) {
-        return data[row][col];
-    }
-    
-    public void loadData(Library lib){
-        Object[][] temp = new Object[lib.songCount()][2];
-        Song[] songs = lib.getSongs();
-        for (int i = 0; i < songs.length; i++){
-            temp[i][0] = songs[i].artist();
-            temp[i][1] = songs[i].title();
+        Song s = (Song) data.get(row);
+        switch (col) {
+            case 0:
+                return s.artist();
+            case 1:
+                return s.title();
+            default:
+                return 1;
         }
-        data = temp;
     }
 }
