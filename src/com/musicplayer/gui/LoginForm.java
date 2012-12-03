@@ -20,6 +20,7 @@ public class LoginForm extends javax.swing.JFrame {
     public LoginForm(PlayerGUI gui, UserRepository users) {
         this.gui = gui;
         userRepo = users;
+        this.setLocationRelativeTo(rootPane);
         initComponents();
     }
 

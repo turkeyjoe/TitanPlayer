@@ -14,6 +14,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 
 /**
  *
@@ -41,6 +43,9 @@ public class LibraryTest {
     public void tearDown() {
     }
     
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+    
     @Test
     public void newLibraryTest(){
         Library testLibrary = new Library();
@@ -48,43 +53,51 @@ public class LibraryTest {
     }
     
     @Test
-    public void addSongToLibraryTest(){
+    public void addSongToLibraryTest() throws Exception{
         Library testLibrary = new Library();
         testLibrary.addSong(new Song("Dancing Nancies", "Dave Matthews Band", path));
         assertEquals("song should be added to library", 1, testLibrary.songCount());
     }
     
     @Test
-    public void removeSongFromLibraryTest(){
+    public void removeSongFromLibraryTest() throws Exception{
         Library testLibrary = new Library();
         testLibrary.addSong(new Song("Dancing Nancies", "Dave Matthews Band", path));
         testLibrary.addSong(new Song("Turn The Page", "Bob Seger", path));
         testLibrary.removeSong("Dave Matthews Band", "Dancing Nancies");
         assertEquals(1, testLibrary.songCount());
-        assertEquals("Turn The Page", testLibrary.getSong(0).title());
+        assertEquals("Turn The Page", testLibrary.getSong("Bob Seger", "Turn The Page").title());
     }
         
     @Test
-    public void sortByTitleTest(){
+    public void sortByTitleTest() throws Exception{
         Library myLibrary = new Library();
         myLibrary.addSong(new Song("The Sign", "Ace of Base", path));
         myLibrary.addSong(new Song("Send The Pain Below", "Chevelle", path));
         myLibrary.addSong(new Song("Dancing Nancies", "Dave Matthews Band", path));
-        assertEquals("The Sign", myLibrary.getSong(0).title());
+        assertEquals("The Sign", myLibrary.getSong("Ace of Base","The Sign").title());
         myLibrary.sortByTitle();
-        assertEquals("Dancing Nancies", myLibrary.getSong(0).title());
+        assertEquals("Dancing Nancies", myLibrary.getSong("Dave Matthews Band", "Dancing Nancies").title());
     }
     
     @Test
-    public void sortByArtistTest(){
+    public void sortByArtistTest() throws Exception{
         Library myLibrary = new Library();
         myLibrary.addSong(new Song("Send The Pain Below", "Chevelle", path));
         myLibrary.addSong(new Song("The Sign", "Ace of Base", path));        
         myLibrary.addSong(new Song("Dancing Nancies", "Dave Matthews Band", path));
-        assertEquals("Chevelle", myLibrary.getSong(0).artist());
+        assertEquals("Chevelle", myLibrary.getSong("Chevelle", "Send The Pain Below").artist());
         myLibrary.sortByArtist();
-        assertEquals("Ace of Base", myLibrary.getSong(0).artist());
+        assertEquals("Ace of Base", myLibrary.getSong("Ace of Base","The Sign").artist());
         //Song[] test = myLibrary.getSongs();
         //assertEquals(3, test.length);
+    }
+    
+    @Test(expected = Exception.class)
+    public void cantAddSongTwiceTest() throws Exception{
+        Library myLibrary = new Library();
+        myLibrary.addSong(new Song("Test", "Test", path));
+        myLibrary.addSong(new Song("Test", "Test", path));
+        assertEquals(1, myLibrary.songCount());        
     }
 }

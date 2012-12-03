@@ -22,7 +22,6 @@
         <Menu class="javax.swing.JMenu" name="mnuLibrary">
           <Properties>
             <Property name="text" type="java.lang.String" value="Library"/>
-            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnuLibraryAddSong">
@@ -312,25 +311,8 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="tblPlaylists">
           <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="2" rowCount="0">
-                <Column editable="true" title="Playlist Title" type="java.lang.Object"/>
-                <Column editable="false" title="# Of Tracks" type="java.lang.Object"/>
-              </Table>
-            </Property>
-            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-              <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title value="Playlist Title"/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title value="# Of Tracks"/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-              </TableColumnModel>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new PlaylistDataModel(new ArrayList())" type="code"/>
             </Property>
             <Property name="showHorizontalLines" type="boolean" value="false"/>
             <Property name="showVerticalLines" type="boolean" value="false"/>
@@ -369,6 +351,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Delete Playlist"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeletePlaylistActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane4">
       <AuxValues>
@@ -379,6 +364,7 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="tblLibrary">
           <Properties>
+            <Property name="autoCreateRowSorter" type="boolean" value="true"/>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new LibraryDataModel(new Library())" type="code"/>
             </Property>

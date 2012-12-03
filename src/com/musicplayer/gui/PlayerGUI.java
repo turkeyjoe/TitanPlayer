@@ -15,8 +15,11 @@ import com.musicplayer.bll.Library;
 import com.musicplayer.bll.LibraryDataModel;
 import com.musicplayer.bll.LibraryRepository;
 import com.musicplayer.bll.Playlist;
+import com.musicplayer.bll.PlaylistDataModel;
+import com.musicplayer.bll.PlaylistRepository;
 import com.musicplayer.bll.UserAccount;
 import com.musicplayer.bll.UserRepository;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,6 +33,7 @@ public class PlayerGUI extends javax.swing.JFrame {
     private Library currentLibrary;
     private LibraryRepository repo;
     private UserRepository userRepo;
+    private PlaylistRepository listRepo;
 
     /**
      * Creates new form PlayerGUI
@@ -38,19 +42,25 @@ public class PlayerGUI extends javax.swing.JFrame {
         initComponents();
         repo = new LibraryRepository();
         userRepo = new UserRepository();
+        listRepo = new PlaylistRepository();
     }
 
     public void loadLibrary() {
-        this.currentLibrary = repo.getUserLibrary(currentUser);    
+        this.currentLibrary = repo.getUserLibrary(currentUser);
     }
-    
-    public void updateLibrary(){
+
+    private void loadPlaylists() {
+        tblPlaylists.setModel(new PlaylistDataModel(listRepo.getUserPlaylists(currentUser)));
+    }
+
+    public void updateLibrary() {
         tblLibrary.setModel(new LibraryDataModel(currentLibrary));
     }
-    
+
     public void setUser(UserAccount user) {
         this.currentUser = user;
         loadLibrary();
+        loadPlaylists();
         updateLibrary();
     }
 
@@ -177,28 +187,11 @@ public class PlayerGUI extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(listPlaylist);
 
-        tblPlaylists.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Playlist Title", "# Of Tracks"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        tblPlaylists.setModel(new PlaylistDataModel(new ArrayList()));
         tblPlaylists.setShowHorizontalLines(false);
         tblPlaylists.setShowVerticalLines(false);
         tblPlaylists.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(tblPlaylists);
-        tblPlaylists.getColumnModel().getColumn(0).setHeaderValue("Playlist Title");
-        tblPlaylists.getColumnModel().getColumn(1).setHeaderValue("# Of Tracks");
 
         btnAddToLibrary.setText("Add To Library");
         btnAddToLibrary.addActionListener(new java.awt.event.ActionListener() {
@@ -222,7 +215,13 @@ public class PlayerGUI extends javax.swing.JFrame {
         });
 
         btnDeletePlaylist.setText("Delete Playlist");
+        btnDeletePlaylist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletePlaylistActionPerformed(evt);
+            }
+        });
 
+        tblLibrary.setAutoCreateRowSorter(true);
         tblLibrary.setModel(new LibraryDataModel(new Library()));
         jScrollPane4.setViewportView(tblLibrary);
 
@@ -239,7 +238,6 @@ public class PlayerGUI extends javax.swing.JFrame {
         jMenuBar1.add(mnuFile);
 
         mnuLibrary.setText("Library");
-        mnuLibrary.setToolTipText("");
 
         mnuLibraryAddSong.setText("Add Song");
         mnuLibraryAddSong.addActionListener(new java.awt.event.ActionListener() {
@@ -339,13 +337,16 @@ public class PlayerGUI extends javax.swing.JFrame {
      this.currentUser = user;
      }*/
     private void btnNewPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewPlaylistActionPerformed
-        if (!txtPlaylistTitle.getText().isEmpty()) {
-            Playlist list = new Playlist(txtPlaylistTitle.getText());
-            DefaultTableModel model = (DefaultTableModel) tblPlaylists.getModel();
-            model.addRow(new Object[]{list.getName(), list.songCount()});
-            txtPlaylistTitle.setText(null);
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Enter a playlist title", "Playlist Error", JOptionPane.INFORMATION_MESSAGE);
+        if (currentUser != null) {
+            if (!txtPlaylistTitle.getText().isEmpty()) {
+                Playlist list = new Playlist(txtPlaylistTitle.getText());
+                list.addUser(currentUser);
+                listRepo.addPlaylist(list);
+                loadPlaylists();
+                txtPlaylistTitle.setText(null);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Enter a playlist title", "Playlist Error", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnNewPlaylistActionPerformed
 
@@ -370,10 +371,13 @@ public class PlayerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuLoginActionPerformed
 
     private void mnuLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLogoutActionPerformed
-        currentUser = null;
-        currentLibrary = null;
-        tblLibrary.setModel(new LibraryDataModel(new Library()));
-        setTitle("Titan Player");
+        if (currentUser != null) {
+            currentUser = null;
+            currentLibrary = null;
+            tblLibrary.setModel(new LibraryDataModel(new Library()));
+            loadPlaylists();
+            setTitle("Titan Player");
+        }
     }//GEN-LAST:event_mnuLogoutActionPerformed
 
     private void mnuFileCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFileCloseActionPerformed
@@ -387,6 +391,14 @@ public class PlayerGUI extends javax.swing.JFrame {
             updateLibrary();
         }
     }//GEN-LAST:event_btnRemoveFromLibraryActionPerformed
+
+    private void btnDeletePlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletePlaylistActionPerformed
+        int selectedRow = tblPlaylists.getSelectedRow();
+        if (selectedRow != -1) {
+            listRepo.deletePlaylist(currentUser, tblPlaylists.getValueAt(selectedRow, 0).toString());
+            loadPlaylists();
+        }
+    }//GEN-LAST:event_btnDeletePlaylistActionPerformed
 
     /**
      * @param args the command line arguments

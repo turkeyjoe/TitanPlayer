@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
@@ -41,7 +42,11 @@ public class AddSongDialog {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             Song newSong = createSong();
             if (newSong != null) {
-                gui.currentLibrary().addSong(newSong);
+                try {
+                    gui.currentLibrary().addSong(newSong);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(gui, ex.getMessage());
+                }
                 gui.updateLibrary();
             } else {
                 System.out.println("Failed to create song");

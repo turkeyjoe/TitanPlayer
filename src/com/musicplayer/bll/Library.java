@@ -27,22 +27,26 @@ public class Library {
         return songs.size();
     }
 
-    public void addSong(Song song) {
-        songs.add(song);
-    }
-
-    public void removeSong(String artist, String title) {
-        Iterator<Song> it = songs.iterator();
-        while(it.hasNext()){
-            Song s = it.next();
-            if (s.artist().equals(artist) && s.title().equals(title)){
-                it.remove();
-            }
+    public void addSong(Song song) throws Exception {
+        if (!songs.contains(song)) {
+            songs.add(song);
+        } else {
+            throw new Exception("Song already in library");
         }
     }
 
-    public Song getSong(int i) {
-        return songs.get(i);
+    public void removeSong(String artist, String title) {
+        songs.remove(getSong(artist, title));
+    }
+
+    public Song getSong(String artist, String title) {
+        Song found = null;
+        for (Song s : songs) {
+            if (s.artist().equals(artist) && s.title().equals(title)) {
+                found = s;
+            }
+        }
+        return found;
     }
 
     public List<Song> getSongs() {

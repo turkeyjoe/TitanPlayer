@@ -15,6 +15,7 @@ public class Playlist {
 
     private List<Song> pl;
     private String name;
+    private UserAccount user;
     
     public Playlist(String name){
         pl = new ArrayList<Song>();
@@ -35,5 +36,13 @@ public class Playlist {
     
     public Song getSong(int i){
         return pl.get(i);
+    }
+    
+    public void addUser(UserAccount user){
+        this.user = user;
+    }
+    
+    public UserAccount getUser(){
+        return user;
     }
 }
