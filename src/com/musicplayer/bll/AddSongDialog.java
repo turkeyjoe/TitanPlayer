@@ -44,10 +44,10 @@ public class AddSongDialog {
             if (newSong != null) {
                 try {
                     gui.currentLibrary().addSong(newSong);
+                    gui.updateLibrary();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(gui, ex.getMessage());
-                }
-                gui.updateLibrary();
+                }              
             } else {
                 System.out.println("Failed to create song");
             }

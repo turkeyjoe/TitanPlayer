@@ -21,7 +21,6 @@ import com.musicplayer.bll.UserAccount;
 import com.musicplayer.bll.UserRepository;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -367,7 +366,9 @@ public class PlayerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuLibraryAddSongActionPerformed
 
     private void mnuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLoginActionPerformed
-        new LoginForm(this, userRepo).setVisible(true);
+        LoginDialog log = new LoginDialog(this, userRepo);
+        log.setLocationRelativeTo(this);
+        log.setVisible(true);
     }//GEN-LAST:event_mnuLoginActionPerformed
 
     private void mnuLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLogoutActionPerformed
@@ -430,7 +431,15 @@ public class PlayerGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PlayerGUI().setVisible(true);
+
+                //Uncomment to have login form at startup
+
+                PlayerGUI gui = new PlayerGUI();
+                gui.setLocationRelativeTo(null);
+                gui.setVisible(true);
+                LoginDialog log = new LoginDialog(gui, gui.userRepo);
+                log.setLocationRelativeTo(gui);
+                log.setVisible(true);
             }
         });
     }
