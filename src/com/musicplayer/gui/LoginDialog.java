@@ -14,27 +14,17 @@ import javax.swing.JOptionPane;
  */
 public class LoginDialog extends javax.swing.JDialog {
 
-    /**
-     * Creates new form LoginDialog
-     */
-//    public LoginDialog(java.awt.Frame parent, boolean modal) {
-//        super(parent, modal);
-//        initComponents();
-//    }
     private PlayerGUI gui;
     private UserRepository userRepo;
 
     public LoginDialog(PlayerGUI gui, UserRepository users) {
         this.setModal(true);
-        this.setTitle("Login To Titan Player");
+        this.setTitle("Log In To Titan Player");
         this.gui = gui;
         userRepo = users;
         initComponents();
     }
 
-    //    private LoginForm() {
-//        initComponents();
-//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

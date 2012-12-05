@@ -108,6 +108,7 @@ public class PlayerGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Titan Player");
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -438,6 +439,7 @@ public class PlayerGUI extends javax.swing.JFrame {
                 gui.setLocationRelativeTo(null);
                 gui.setVisible(true);
                 LoginDialog log = new LoginDialog(gui, gui.userRepo);
+                log.setTitle("Welcome To Titan Player");
                 log.setLocationRelativeTo(gui);
                 log.setVisible(true);
             }
