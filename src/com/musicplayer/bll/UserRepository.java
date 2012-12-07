@@ -20,7 +20,7 @@ public class UserRepository {
 
     public UserRepository() {
         
-        users = loadUserRepo(users);
+        users = loadUserRepo();
     }
 
     public void addUser(UserAccount user) {
@@ -49,7 +49,7 @@ public class UserRepository {
         return true;
     }
 
-    private ArrayList loadUserRepo(ArrayList<UserAccount> users) {
+    private ArrayList loadUserRepo() {
         String loadUsersQuery = "select users.username from UserAccount users";
         
         users = executeHQLQuery(loadUsersQuery);
