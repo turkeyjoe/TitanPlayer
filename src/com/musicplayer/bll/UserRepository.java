@@ -93,25 +93,10 @@ public class UserRepository {
     }
 
     private void addUserToDatabase(UserAccount user) {
-        //String newName = user.getUsername();
-        //String newEmail = user.getEmail();
-        //String newPwd = user.getPassword();
-        
-        //String insertQuery = "INSERT into UserAccount (username, password, email) Values('"+newName+"','"+newPwd+"','"+newEmail+"')";
-        //String queryPassword = "select users.password from UserAccount users";
-        //List nameList = null;
-        //List emailList = null;
-        //List passwordList = null;
-        //ArrayList<UserAccount> userList = new ArrayList();
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.getTransaction().begin();
             session.persist(user);
-                //org.hibernate.Query q = session.createQuery(insertQuery);
-                
-                //nameList = q.list();
-            
-            
             session.getTransaction().commit();
         } catch (HibernateException he) {
             he.printStackTrace();
