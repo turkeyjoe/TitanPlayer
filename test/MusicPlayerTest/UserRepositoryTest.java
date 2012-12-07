@@ -39,11 +39,16 @@ public class UserRepositoryTest {
     }
     
     @Test
-    public void addUserToRepoTest() throws Exception{
-        UserRepository repo = new UserRepository(); //built in user for testing
-        //UserAccount acct = new UserAccount("TJN", "$tj82", "a@b.com");
-        //repo.addUser(acct);
+    public void populateRepoTest() throws Exception{
+        UserRepository repo = new UserRepository();
         assertEquals(2, repo.userCount());
-        //assertSame(acct, repo.getUser("TJN"));
+    }
+    
+    @Test
+    public void addUserToRepoTest() throws Exception{
+        UserRepository repo = new UserRepository();
+        UserAccount acct = new UserAccount("TJN", "$tj82", "a@b.com");
+        repo.addUser(acct);
+        assertEquals(3, repo.userCount());
     }
 }
