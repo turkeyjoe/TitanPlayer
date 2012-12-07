@@ -69,7 +69,7 @@ public class DBAccessUserTest {
                     org.hibernate.Query qP = session.createQuery(queryPassword + " where users.username = '"+nameList.get(i)+"'");       
                     passwordList = qP.list();
                     
-                    assertEquals(3,nameList.size());
+                    assertEquals(2,nameList.size());
                     //System.out.println(nameList.get(i)+", "+emailList.get(0)+", "+passwordList.get(0));
                 }
 
@@ -78,6 +78,5 @@ public class DBAccessUserTest {
         } catch (HibernateException he) {
             he.printStackTrace();
         }
-        
     }
 }
