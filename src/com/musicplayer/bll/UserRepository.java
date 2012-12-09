@@ -16,10 +16,9 @@ import org.hibernate.Session;
  */
 public class UserRepository {
 
-    private List<UserAccount> users;
+    private ArrayList<UserAccount> users = new ArrayList<UserAccount>();
 
     public UserRepository() {
-        
         users = loadUserRepo();
     }
 
@@ -50,20 +49,20 @@ public class UserRepository {
         return true;
     }
     
-    private List loadUserRepo() {
+    private ArrayList<UserAccount> loadUserRepo() {
         String loadUsersQuery = "select users.username from UserAccount users";
         
         users = getAllUsersHQLQuery(loadUsersQuery);
         return users;
     }
     
-    private ArrayList getAllUsersHQLQuery(String hql) {
+    private ArrayList<UserAccount> getAllUsersHQLQuery(String hql) {
         String queryEmail = "select users.email from UserAccount users";
         String queryPassword = "select users.password from UserAccount users";
         List nameList = null;
         List emailList = null;
         List passwordList = null;
-        ArrayList<UserAccount> userList = new ArrayList();
+        ArrayList<UserAccount> userList = new ArrayList<UserAccount>();
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();

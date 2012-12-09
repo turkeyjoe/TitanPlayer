@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 28, 2012 7:52:46 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="titan_player" name="com.musicplayer.bll.PlayList" table="playlists">
+    <id name="playlistName" type="string">
+      <column length="64" name="playlist_name"/>
+      <generator class="assigned"/>
+    </id>
+    <!--many-to-one class="com.mytitanplayer.bll.Library" fetch="select" name="library">
+      <column name="playlist_songnum"/>
+    </many-to-one-->
+    <property name="playlistUser" type="string">
+      <column length="10" name="playlist_user"/>
+    </property>
+    <property name="libraryLocation" type="java.lang.Integer">
+      <column name="library_location"/>
+    </property>
+  </class>
+</hibernate-mapping>
