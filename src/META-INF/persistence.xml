@@ -3,6 +3,7 @@
   <persistence-unit name="TitanPlayerPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.musicplayer.bll.UserAccount</class>
+    <class>com.musicplayer.bll.LibraryDBRecord</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/Titan_Player"/>
       <property name="javax.persistence.jdbc.password" value=""/>
