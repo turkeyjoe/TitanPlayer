@@ -509,6 +509,7 @@ public class PlayerGUI extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addSongToPlaylistButton;
     private javax.swing.JButton btnAddToLibrary;
     private javax.swing.JButton btnAddToPlaylist;
     private javax.swing.JButton btnDeletePlaylist;
@@ -536,6 +537,7 @@ public class PlayerGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuLogin;
     private javax.swing.JMenuItem mnuLogout;
     private javax.swing.JMenu mnuUser;
+    private javax.swing.JButton removeSongFromPlaylistButton;
     private javax.swing.JSlider sldCurrentPos;
     private javax.swing.JTable tblLibrary;
     private javax.swing.JTable tblPlaylists;

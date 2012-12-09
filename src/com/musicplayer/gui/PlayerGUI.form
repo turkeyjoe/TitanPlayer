@@ -404,5 +404,15 @@
         <Property name="text" type="java.lang.String" value="Remove Song"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.JButton" name="addSongToPlaylistButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Add Song"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="removeSongFromPlaylistButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Remove Song"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>

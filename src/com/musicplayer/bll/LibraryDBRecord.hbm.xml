@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 28, 2012 7:52:46 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="titan_player" name="com.musicplayer.bll.LibraryDBRecord" table="library">
+    <id name="songNum" type="int">
+      <column name="song_num"/>
+      <generator class="assigned"/>
+    </id>
+    <!--many-to-one class="com.musicplayer.bll.LibraryDBRecord" fetch="select" name="library">
+      <column length="10" name="user" type="string" not-null="true"/>
+    </many-to-one-->
+    <property name="userid" type="string">
+        <column length="10" name="userid" not-null="true"/>
+    </property>
+    <property name="songName" type="string">
+      <column length="128" name="song_name" not-null="true"/>
+    </property>
+    <property name="songArtist" type="string">
+      <column length="128" name="song_artist" not-null="true"/>
+    </property>
+    <property name="songPath" type="string">
+      <column length="256" name="song_path" not-null="true"/>
+    </property>
+    <!--set inverse="true" name="playlistses">
+      <key>
+        <column name="playlist_songnum"/>
+      </key>
+      <one-to-many class="com.mytitanplayer.bll.Playlist"/>
+    </set-->
+  </class>
+</hibernate-mapping>
