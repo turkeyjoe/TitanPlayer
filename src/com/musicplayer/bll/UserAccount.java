@@ -22,7 +22,7 @@ public class UserAccount {
             throw new IllegalArgumentException("Enter A Username");
         }
         if (!validatePassword(password)) {
-            throw new IllegalArgumentException("Invalid Password");
+            throw new IllegalArgumentException("Password must contain at least 1 digit, 1 alpha, and 1 special character!");
         }
         if (!validateEmail(email)) {
             throw new IllegalArgumentException("Invalid Email Address");
