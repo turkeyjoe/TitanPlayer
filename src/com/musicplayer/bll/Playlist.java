@@ -34,6 +34,10 @@ public class Playlist {
         pl.add(song);
     }
     
+    public void removeSong(Song s){
+        pl.remove(s);
+    }
+    
     public Song getSong(int i){
         return pl.get(i);
     }

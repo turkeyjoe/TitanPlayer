@@ -21,6 +21,8 @@ import com.musicplayer.bll.Song;
 import com.musicplayer.bll.UserAccount;
 import com.musicplayer.bll.UserRepository;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -499,6 +501,14 @@ public class PlayerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddToPlaylistActionPerformed
 
     private void btnRemoveFromPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFromPlaylistActionPerformed
+        try {
+            Playlist list = listRepo.getPlaylist(currentUser, tblPlaylists.getValueAt(tblPlaylists.getSelectedRow(), 0).toString());
+            list.removeSong((Song) listPlaylist.getSelectedValue());
+            updatePlaylists();
+        } catch (Exception ex) {
+            Logger.getLogger(PlayerGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btnRemoveFromPlaylistActionPerformed
 
     /**
