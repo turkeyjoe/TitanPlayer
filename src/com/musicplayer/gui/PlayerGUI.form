@@ -104,23 +104,28 @@
                   <Component id="jPanel1" alignment="1" max="32767" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane2" alignment="1" min="-2" pref="278" max="-2" attributes="0"/>
+                          <Component id="btnDeletePlaylist" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane3" pref="0" max="32767" attributes="1"/>
                           <Group type="102" attributes="0">
                               <Component id="btnNewPlaylist" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtPlaylistTitle" min="-2" pref="70" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane3" pref="0" max="32767" attributes="1"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace type="unrelated" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane2" alignment="1" min="-2" pref="278" max="-2" attributes="0"/>
-                          <Component id="btnDeletePlaylist" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnAddToPlaylist" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnRemoveFromPlaylist" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -133,8 +138,15 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane2" pref="183" max="32767" attributes="1"/>
                   <Component id="jPanel1" max="32767" attributes="1"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jScrollPane2" max="32767" attributes="1"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnAddToPlaylist" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnRemoveFromPlaylist" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -374,6 +386,23 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextField" name="txtPlaylistTitle">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPlaylistTitleActionPerformed"/>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPlaylistTitleFocusGained"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnAddToPlaylist">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Add Song"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddToPlaylistActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnRemoveFromPlaylist">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Remove Song"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
