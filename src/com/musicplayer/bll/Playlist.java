@@ -37,7 +37,11 @@ public class Playlist {
     public Song getSong(int i){
         return pl.get(i);
     }
-        
+    
+    public Object[] getList(){
+        return pl.toArray();
+    }
+    
     public void addUser(UserAccount user){
         this.user = user;
     }
