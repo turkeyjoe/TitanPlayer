@@ -16,7 +16,11 @@ public class PlaylistDataModel extends AbstractTableModel {
     private List data;
     
     public PlaylistDataModel(List l){
-        data = l;
+        setData(l);
+    }
+    
+    public void setData(List l){
+        this.data = l;
     }
     
     @Override
@@ -46,5 +50,4 @@ public class PlaylistDataModel extends AbstractTableModel {
                 return 1;
         }
     }
-    
 }

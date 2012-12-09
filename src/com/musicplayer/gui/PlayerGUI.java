@@ -17,9 +17,12 @@ import com.musicplayer.bll.LibraryRepository;
 import com.musicplayer.bll.Playlist;
 import com.musicplayer.bll.PlaylistDataModel;
 import com.musicplayer.bll.PlaylistRepository;
+import com.musicplayer.bll.Song;
 import com.musicplayer.bll.UserAccount;
 import com.musicplayer.bll.UserRepository;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -35,7 +38,6 @@ public class PlayerGUI extends javax.swing.JFrame {
     private PlaylistRepository listRepo;
 
     /**
-     * Test push
      * Creates new form PlayerGUI
      */
     public PlayerGUI() {
@@ -55,6 +57,12 @@ public class PlayerGUI extends javax.swing.JFrame {
 
     public void updateLibrary() {
         tblLibrary.setModel(new LibraryDataModel(currentLibrary));
+    }
+
+    public void updatePlaylists() {
+        PlaylistDataModel model = (PlaylistDataModel) tblPlaylists.getModel();
+        model.setData(listRepo.getUserPlaylists(currentUser));
+        model.fireTableDataChanged();
     }
 
     public void setUser(UserAccount user) {
@@ -97,8 +105,8 @@ public class PlayerGUI extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tblLibrary = new javax.swing.JTable();
         txtPlaylistTitle = new javax.swing.JTextField();
-        addSongToPlaylistButton = new javax.swing.JButton();
-        removeSongFromPlaylistButton = new javax.swing.JButton();
+        btnAddToPlaylist = new javax.swing.JButton();
+        btnRemoveFromPlaylist = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuFile = new javax.swing.JMenu();
         mnuFileClose = new javax.swing.JMenuItem();
@@ -228,9 +236,25 @@ public class PlayerGUI extends javax.swing.JFrame {
         tblLibrary.setModel(new LibraryDataModel(new Library()));
         jScrollPane4.setViewportView(tblLibrary);
 
-        addSongToPlaylistButton.setText("Add Song");
+        txtPlaylistTitle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPlaylistTitleActionPerformed(evt);
+            }
+        });
+        txtPlaylistTitle.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPlaylistTitleFocusGained(evt);
+            }
+        });
 
-        removeSongFromPlaylistButton.setText("Remove Song");
+        btnAddToPlaylist.setText("Add Song");
+        btnAddToPlaylist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddToPlaylistActionPerformed(evt);
+            }
+        });
+
+        btnRemoveFromPlaylist.setText("Remove Song");
 
         mnuFile.setText("File");
 
@@ -315,9 +339,9 @@ public class PlayerGUI extends javax.swing.JFrame {
                                 .addComponent(txtPlaylistTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(addSongToPlaylistButton)
+                                .addComponent(btnAddToPlaylist)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(removeSongFromPlaylistButton)))))
+                                .addComponent(btnRemoveFromPlaylist)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -330,8 +354,8 @@ public class PlayerGUI extends javax.swing.JFrame {
                         .addComponent(jScrollPane2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addSongToPlaylistButton)
-                            .addComponent(removeSongFromPlaylistButton))))
+                            .addComponent(btnAddToPlaylist)
+                            .addComponent(btnRemoveFromPlaylist))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
@@ -358,8 +382,8 @@ public class PlayerGUI extends javax.swing.JFrame {
                 Playlist list = new Playlist(txtPlaylistTitle.getText());
                 list.addUser(currentUser);
                 listRepo.addPlaylist(list);
-                loadPlaylists();
                 txtPlaylistTitle.setText(null);
+                updatePlaylists();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Enter a playlist title", "Playlist Error", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -393,7 +417,7 @@ public class PlayerGUI extends javax.swing.JFrame {
             currentUser = null;
             currentLibrary = null;
             tblLibrary.setModel(new LibraryDataModel(new Library()));
-            loadPlaylists();
+            updatePlaylists();
             setTitle("Titan Player");
         }
     }//GEN-LAST:event_mnuLogoutActionPerformed
@@ -414,9 +438,32 @@ public class PlayerGUI extends javax.swing.JFrame {
         int selectedRow = tblPlaylists.getSelectedRow();
         if (selectedRow != -1) {
             listRepo.deletePlaylist(currentUser, tblPlaylists.getValueAt(selectedRow, 0).toString());
-            loadPlaylists();
+            updatePlaylists();
         }
     }//GEN-LAST:event_btnDeletePlaylistActionPerformed
+
+    private void txtPlaylistTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlaylistTitleActionPerformed
+    }//GEN-LAST:event_txtPlaylistTitleActionPerformed
+
+    private void txtPlaylistTitleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlaylistTitleFocusGained
+        tblPlaylists.clearSelection();
+    }//GEN-LAST:event_txtPlaylistTitleFocusGained
+
+    private void btnAddToPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToPlaylistActionPerformed
+        if (tblLibrary.getSelectedRow() != -1 && tblPlaylists.getSelectedRow() != -1) {
+            try {
+                System.out.println("Add song to playlist");
+                int plrow = tblPlaylists.getSelectedRow();
+                int lrow = tblLibrary.getSelectedRow();
+                Playlist list = listRepo.getPlaylist(currentUser, tblPlaylists.getValueAt(plrow, 0).toString());
+                Song toAdd = currentLibrary.getSong(tblLibrary.getValueAt(lrow, 0).toString(), tblLibrary.getValueAt(lrow, 1).toString());
+                list.addSong(toAdd);
+                updatePlaylists();
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnAddToPlaylistActionPerformed
 
     /**
      * @param args the command line arguments
@@ -464,9 +511,11 @@ public class PlayerGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addSongToPlaylistButton;
     private javax.swing.JButton btnAddToLibrary;
+    private javax.swing.JButton btnAddToPlaylist;
     private javax.swing.JButton btnDeletePlaylist;
     private javax.swing.JButton btnNewPlaylist;
     private javax.swing.JButton btnRemoveFromLibrary;
+    private javax.swing.JButton btnRemoveFromPlaylist;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
