@@ -12,6 +12,7 @@ public class Player {
     private Playlist playlist;
     private int currentSong;
     private boolean isPlaying = false;
+    private boolean pause;
 
     public void loadPlaylist(Playlist pl) {
         playlist = pl;
@@ -37,5 +38,15 @@ public class Player {
         return isPlaying;
     }
     
-    //Nikki to add Pause function- testing commit abilities
+    public boolean pause() {
+        return pause;
+    }
+    
+    public void paused() {
+        if (pause = false) {
+            pause = true;
+        }
+        
+    }
+    
 }
