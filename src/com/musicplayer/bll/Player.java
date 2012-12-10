@@ -37,5 +37,5 @@ public class Player {
         return isPlaying;
     }
     
-    //Nikki to add Pause function - testing commit abilities
+    //Nikki to add Pause function- testing commit abilities
 }
