@@ -36,4 +36,6 @@ public class Player {
     public boolean isPlaying() {
         return isPlaying;
     }
+    
+    //Nikki to add Pause function - testing commit abilities
 }
