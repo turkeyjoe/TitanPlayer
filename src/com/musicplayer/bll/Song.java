@@ -65,6 +65,6 @@ public class Song {
     
     @Override
     public String toString(){
-        return this.title + " - " + this.artist + " " + this.filePath;
+        return this.title + " - " + this.artist;
     }
 }

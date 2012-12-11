@@ -23,7 +23,10 @@ import com.musicplayer.bll.UserRepository;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -45,6 +48,16 @@ public class PlayerGUI extends javax.swing.JFrame {
         repo = new LibraryRepository();
         userRepo = new UserRepository();
         listRepo = new PlaylistRepository();
+        tblPlaylists.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (tblPlaylists.getSelectedRow() != -1) {
+                if (!e.getValueIsAdjusting()) {
+                    displayPlaylist();
+                }
+                }
+            }
+        });
     }
 
     public void loadLibrary() {
@@ -70,6 +83,20 @@ public class PlayerGUI extends javax.swing.JFrame {
         loadLibrary();
         loadPlaylists();
         updateLibrary();
+    }
+
+    public void displayPlaylist() {
+        Playlist list = null;
+        try {
+            list = listRepo.getPlaylist(currentUser, tblPlaylists.getValueAt(tblPlaylists.getSelectedRow(), 0).toString());
+        } catch (Exception ex) {
+        }
+        Object[] songs = list.getList();
+        DefaultListModel model = (DefaultListModel) listPlaylist.getModel();
+        model.clear();
+        for (int i = 0; i < songs.length; i++) {
+            model.add(i, songs[i]);
+        }
     }
 
     public Library currentLibrary() {
@@ -107,6 +134,8 @@ public class PlayerGUI extends javax.swing.JFrame {
         txtPlaylistTitle = new javax.swing.JTextField();
         btnAddToPlaylist = new javax.swing.JButton();
         btnRemoveFromPlaylist = new javax.swing.JButton();
+        addSongToPlaylistButton = new javax.swing.JButton();
+        removeSongFromPlaylistButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuFile = new javax.swing.JMenu();
         mnuFileClose = new javax.swing.JMenuItem();
@@ -191,11 +220,8 @@ public class PlayerGUI extends javax.swing.JFrame {
         );
 
         listPlaylist.setBackground(new java.awt.Color(240, 240, 240));
-        listPlaylist.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        listPlaylist.setModel(new DefaultListModel());
+        listPlaylist.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(listPlaylist);
 
         tblPlaylists.setModel(new PlaylistDataModel(new ArrayList()));
@@ -255,6 +281,15 @@ public class PlayerGUI extends javax.swing.JFrame {
         });
 
         btnRemoveFromPlaylist.setText("Remove Song");
+        btnRemoveFromPlaylist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveFromPlaylistActionPerformed(evt);
+            }
+        });
+
+        addSongToPlaylistButton.setText("Add Song");
+
+        removeSongFromPlaylistButton.setText("Remove Song");
 
         mnuFile.setText("File");
 
@@ -464,6 +499,17 @@ public class PlayerGUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnAddToPlaylistActionPerformed
+
+    private void btnRemoveFromPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFromPlaylistActionPerformed
+        try {
+            Playlist list = listRepo.getPlaylist(currentUser, tblPlaylists.getValueAt(tblPlaylists.getSelectedRow(), 0).toString());
+            list.removeSong((Song) listPlaylist.getSelectedValue());
+            updatePlaylists();
+        } catch (Exception ex) {
+            Logger.getLogger(PlayerGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnRemoveFromPlaylistActionPerformed
 
     /**
      * @param args the command line arguments

@@ -34,10 +34,18 @@ public class Playlist {
         pl.add(song);
     }
     
+    public void removeSong(Song s){
+        pl.remove(s);
+    }
+    
     public Song getSong(int i){
         return pl.get(i);
     }
-        
+    
+    public Object[] getList(){
+        return pl.toArray();
+    }
+    
     public void addUser(UserAccount user){
         this.user = user;
     }
