@@ -49,7 +49,7 @@ public class DBAccessLibraryTest {
     
     @Test
     public void numOfUsersInLibTest(){
-        String queryName = "select distinct lib.userid from LibraryDBRecord lib";
+        String queryName = "select distinct lib.userId from LibraryDBRecord lib";
         
         List nameList = null;
         
@@ -69,7 +69,7 @@ public class DBAccessLibraryTest {
     
     @Test
     public void numOfSongsPerUserTest(){
-        String queryName = "select distinct lib.userid from LibraryDBRecord lib";
+        String queryName = "select distinct lib.userId from LibraryDBRecord lib";
         String querySong = "select lib.songName from LibraryDBRecord lib";
         List nameList = null;
         List songList = null;
@@ -81,7 +81,7 @@ public class DBAccessLibraryTest {
                 nameList = qN.list();
             
             for(int i = 0; i < nameList.size();i++){
-                org.hibernate.Query qS = session.createQuery(querySong + " where lib.userid = '"+nameList.get(i)+"'");       
+                org.hibernate.Query qS = session.createQuery(querySong + " where lib.userId = '"+nameList.get(i)+"'");       
                 songList = qS.list();
                 
                 if(i == 0){
@@ -107,47 +107,10 @@ public class DBAccessLibraryTest {
 
         String userid = "TRock5150";
         LibraryDBRecord libRec = new LibraryDBRecord(userid, newSong.title(), newSong.artist(), dbSongPath);
-
-        //int maxNum = libRec.getSongNum();
-        //System.out.println("MaxNum = " + maxNum);
         
-        //int newLibNum = maxNum + 1;
-        
-        //LibraryDBRecord newLibRec = new LibraryDBRecord(newLibNum, libRec.getUserid(), libRec.getSongName(), libRec.getSongArtist(), dbSongPath);
-        //newLibRec.setSongNum(newLibNum);
-        
-        System.out.println("Branching to addSong method:");
+        //System.out.println("Branching to addSong method:");
         addWasSuccess = libRec.addSong(libRec);
-        System.out.println("Back from addSong method:");
+        //System.out.println("Back from addSong method:");
         
-        /*String queryName = "select distinct lib.userid from LibraryDBRecord lib";
-        String querySong = "select lib.songName from LibraryDBRecord lib";
-        List nameList = null;
-        List songList = null;
-        
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-                org.hibernate.Query qN = session.createQuery(queryName);       
-                nameList = qN.list();
-                
-            //System.out.println("Number of names in library = " + nameList.size());
-            
-            for(int i = 0; i < nameList.size();i++){
-                org.hibernate.Query qS = session.createQuery(querySong + " where lib.userid = '"+nameList.get(i)+"'");       
-                songList = qS.list();
-                
-                if(i == 0){
-                    assertEquals(3,songList.size());
-                }
-            }
-
-            session.getTransaction().commit();
-
-        } catch (HibernateException he) {
-            he.printStackTrace();
-        }
-        * 
-        */
     }
 }

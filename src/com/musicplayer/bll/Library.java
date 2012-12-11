@@ -30,16 +30,6 @@ public class Library {
     public int songCount() {
         return songs.size();
     }
-
-    /*public void addSong(Song song, String init)throws Exception {
-        if (!songs.contains(song)) {
-            songs.add(song);
-        } else {
-            throw new Exception("Song already in library");
-        }
-    }
-    * 
-    */
             
     public void addSong(Song song, String init) throws Exception {
         if (!songs.contains(song)) {

@@ -35,10 +35,10 @@ public class LibraryRepository {
     
     public Library getUserLibrary(UserAccount user) {
         Library userLibrary = new Library();
-        System.out.println("Size of Overall Library = " + libraries.size());
+        //System.out.println("Size of Overall Library = " + libraries.size());
         for (Library l : libraries) {
             if (l.getUser().equals(user)) {
-                System.out.println("Found User in Library!");
+                //System.out.println("Found User in Library!");
                 userLibrary = l;
                 return userLibrary;
             }
