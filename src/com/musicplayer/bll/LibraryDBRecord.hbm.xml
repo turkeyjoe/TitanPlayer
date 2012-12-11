@@ -10,7 +10,7 @@
     <!--many-to-one class="com.musicplayer.bll.LibraryDBRecord" fetch="select" name="library">
       <column length="10" name="user" type="string" not-null="true"/>
     </many-to-one-->
-    <property name="userid" type="string">
+    <property name="userId" type="string">
         <column length="10" name="userid" not-null="true"/>
     </property>
     <property name="songName" type="string">

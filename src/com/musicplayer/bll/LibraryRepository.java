@@ -49,7 +49,7 @@ public class LibraryRepository {
     }
 
     private ArrayList<Library> loadLibrary() {
-        String libUsersListQuery = "select distinct lib.userid from LibraryDBRecord lib";
+        String libUsersListQuery = "select distinct lib.userId from LibraryDBRecord lib";
         
         libraries = getAllSongsHQLQuery(libUsersListQuery);
         
@@ -64,7 +64,7 @@ public class LibraryRepository {
         String querySong = "select lib.songName from LibraryDBRecord lib";
         String queryArtist = "select lib.songArtist from LibraryDBRecord lib";
         String queryPath = "select lib.songPath from LibraryDBRecord lib";
-        String subQuery1 = " where lib.userid = '";
+        String subQuery1 = " where lib.userId = '";
         String subQuery2 = " and lib.songName = '";
         
         List nameList = null;
