@@ -117,10 +117,10 @@ public class PlayerGUI extends javax.swing.JFrame {
         sldCurrentPos = new javax.swing.JSlider();
         lblCurrentTime = new javax.swing.JLabel();
         lblEndTime = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         listPlaylist = new javax.swing.JList();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -162,13 +162,21 @@ public class PlayerGUI extends javax.swing.JFrame {
 
         lblEndTime.setText("0:00");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/musicplayer/gui/splay.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/musicplayer/gui/splay.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.setContentAreaFilled(false);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/musicplayer/gui/sstop.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/musicplayer/gui/sstop.png"))); // NOI18N
+        jButton2.setBorder(null);
+        jButton2.setContentAreaFilled(false);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/musicplayer/gui/sback.png"))); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/musicplayer/gui/sforward.png"))); // NOI18N
+        jButton3.setBorder(null);
+        jButton3.setContentAreaFilled(false);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/musicplayer/gui/sforward.png"))); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/musicplayer/gui/sback.png"))); // NOI18N
+        jButton4.setBorder(null);
+        jButton4.setContentAreaFilled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -189,15 +197,15 @@ public class PlayerGUI extends javax.swing.JFrame {
                         .addGap(94, 94, 94)
                         .addComponent(sldCurrentPos, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addComponent(jLabel4)
+                        .addGap(91, 91, 91)
+                        .addComponent(jButton4)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel3)))
-                .addContainerGap(98, Short.MAX_VALUE))
+                        .addComponent(jButton3)))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,11 +220,11 @@ public class PlayerGUI extends javax.swing.JFrame {
                     .addComponent(lblCurrentTime))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
-                .addContainerGap(35, Short.MAX_VALUE))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         listPlaylist.setBackground(new java.awt.Color(240, 240, 240));
@@ -360,13 +368,12 @@ public class PlayerGUI extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnDeletePlaylist, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 228, Short.MAX_VALUE)
+                        .addComponent(btnDeletePlaylist))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnNewPlaylist)
@@ -581,10 +588,10 @@ public class PlayerGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnNewPlaylist;
     private javax.swing.JButton btnRemoveFromLibrary;
     private javax.swing.JButton btnRemoveFromPlaylist;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
