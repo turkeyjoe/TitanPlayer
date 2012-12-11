@@ -43,7 +43,16 @@ public class Library {
     }
 
     public void removeSong(String artist, String title) {
+        
+        Song delSong = getSong(artist, title);
+        UserAccount delSongUser = getUser();
+        String strPath = delSong.filePath().toString();
+        LibraryDBRecord delRec = new LibraryDBRecord(delSongUser.getUsername(),
+                delSong.title(),delSong.artist(),strPath);
+        
+        delSongFromLibTable(delRec);
         songs.remove(getSong(artist, title));
+        
     }
 
     public Song getSong(String artist, String title) {
@@ -106,6 +115,47 @@ public class Library {
             session.getTransaction().begin();
             session.persist(libRec);
             session.getTransaction().commit();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
+    }
+    
+    private void delSongFromLibTable(LibraryDBRecord delRec){
+        String songsUser = delRec.getUser();
+        String songsTitle = delRec.getSongName();
+        String songsArtist = delRec.getSongArtist();
+        String queryID = "select lib.songNum from LibraryDBRecord lib where lib.userId = '";
+        String subquery1 = "' and lib.songName = '";
+        String subquery2 = "' and lib.songArtist = '";
+        String subquery3 = "'";
+        
+        String fullquery = queryID + songsUser + subquery1 + songsTitle + subquery2 + songsArtist + subquery3;
+        
+        List resultID = null;
+        int songID = 0;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+                org.hibernate.Query qN = session.createQuery(fullquery);       
+                resultID = qN.list();
+                
+                if(!resultID.isEmpty()){
+                    songID = (Integer)resultID.get(0);
+                    System.out.println(songID);
+                }
+                
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
+
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            delRec.setSongNum(songID);
+            session.delete(delRec);
+            session.flush();
+            session.getTransaction().commit();
+
         } catch (HibernateException he) {
             he.printStackTrace();
         }

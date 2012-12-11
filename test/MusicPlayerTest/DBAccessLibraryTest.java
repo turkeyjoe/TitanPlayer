@@ -14,6 +14,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.hql.ast.util.SessionFactoryHelper;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -96,7 +98,7 @@ public class DBAccessLibraryTest {
         }
     }
     
-    @Test
+    /*@Test
     public void addSongToLibTableTest() {
         LibraryRepository repo = new LibraryRepository();
         Path songPath = Paths.get("c:\\mymusic\\Poison\\NuthinButAGoodTime.mp3");
@@ -111,6 +113,59 @@ public class DBAccessLibraryTest {
         //System.out.println("Branching to addSong method:");
         addWasSuccess = libRec.addSong(libRec);
         //System.out.println("Back from addSong method:");
+    }
+    * 
+    */
+    
+    @Test
+    public void deleteSongFromLibTest() {
+
+        //LibraryDBRecord recToDelete = new LibraryDBRecord("TRock5150","Delete This Song","Delete","Delete");
+        String queryID = "select lib.songNum from LibraryDBRecord lib where lib.userId = 'TRock5150' and lib.songName = 'Delete This Song' and lib.songArtist = 'Delete'";
+        List resultID = null;
+        int songID = 0;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+                org.hibernate.Query qN = session.createQuery(queryID);       
+                resultID = qN.list();
+                
+                if(!resultID.isEmpty()){
+                    songID = (Integer)resultID.get(0);
+                    System.out.println(songID);
+                }
+                
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
         
+        LibraryDBRecord delRec = new LibraryDBRecord(songID,"TRock5150","Delete This Song","Delete","Delete");
+        
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            delRec.setSongNum(songID);
+            session.delete(delRec);
+            session.flush();
+            session.getTransaction().commit();
+
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
+        
+        try {
+            String hql = "SELECT lib.songNum from LibraryDBRecord lib where lib.userId = 'TRock5150' and lib.songName = 'Delete'";
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            org.hibernate.Query qN = session.createQuery(hql);       
+                resultID = qN.list();
+                //if(resultID.isEmpty())
+                
+                //String strsongID = (String)resultID.get(0);
+            assertTrue(resultID.isEmpty());
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
+
     }
 }

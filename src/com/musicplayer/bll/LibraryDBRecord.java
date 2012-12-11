@@ -27,43 +27,26 @@ public class LibraryDBRecord {
     @Column(name = "SONG_NUMBER", unique = true)
     private int songNum;
     
-    //@Basic(optional = false)
-    //@Column(name = "USERID")
     private String userId;
-    //@Basic(optional = false)
-    //@Column(name = "SONG_NAME")
     private String songName;
-    //@Basic(optional = false)
-    //@Column(name = "SONG_ARTIST")
     private String songArtist;
-    //@Basic(optional = false)
-    //@Column(name = "SONG_PATH")
-    private String songPath;
-    
-    
-    //private String userid;
-    //private String songName;
-    //private String songArtist;
-    //private String songPath;
+    private String songPath;;
 
     public LibraryDBRecord(String user, String songName, String songArtist, String songPath) {
-        //this.songNum = 0;
         this.userId = user;
         this.songName = songName;
         this.songArtist = songArtist;
         this.songPath = songPath;
     }
     
-    /*public LibraryDBRecord(int nextSongNum, String user, String songName, String songArtist, String songPath) {
-        //this.songNum = nextSongNum;
-        this.userid = user;
+    public LibraryDBRecord(int songNum, String user, String songName, String songArtist, String songPath) {
+        this.songNum = 0;
+        this.userId = user;
         this.songName = songName;
         this.songArtist = songArtist;
         this.songPath = songPath;
     }
-    * 
-    */
-
+    
     public String getSongArtist() {
         return songArtist;
     }
@@ -110,31 +93,6 @@ public class LibraryDBRecord {
         this.userId = user;
     }
     
-    
-    /*public int getSongNum() {
-        List maxLibID = null;
-        //int nextNum = 0;
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-                org.hibernate.Query q = session.createQuery("Select lib.songNum from LibraryDBRecord lib");
-                
-                maxLibID = q.list();
-
-                System.out.println("Inside getSongNum: Size of maxLibID = " + maxLibID.size());
-                songNum = (Integer) maxLibID.get(maxLibID.size() - 1);
-                System.out.println(songNum);
-
-            session.getTransaction().commit();
-        } catch (HibernateException he) {
-            he.printStackTrace();
-        }
-        
-        return songNum;
-    }
-    * 
-    */
-    
     public String getUserid() {
         return userId;
     }
@@ -161,18 +119,11 @@ public class LibraryDBRecord {
 
     public boolean addSong(LibraryDBRecord addRec) {
         boolean success = false;
-        System.out.println("Now inside addSong method:");
-        //LibraryDBRecord addRec = new LibraryDBRecord(newSongNum,userid,songName,songArtist,songPath);
-        
-        System.out.println("Record to be added: ");
-        System.out.println(addRec.userId+","+addRec.songName+","+addRec.songArtist+","+addRec.songPath);
-        
+
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.getTransaction().begin();
-            //session.save(addRec);
             session.persist(addRec);
-            //session.refresh(addRec);
             session.getTransaction().commit();
             success = true;
         } catch (HibernateException he) {
