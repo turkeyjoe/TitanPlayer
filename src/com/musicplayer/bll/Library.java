@@ -4,10 +4,15 @@
  */
 package com.musicplayer.bll;
 
+import TitanPlayer.util.HibernateUtil;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 
 /**
  *
@@ -26,9 +31,22 @@ public class Library {
         return songs.size();
     }
 
-    public void addSong(Song song) throws Exception {
+    /*public void addSong(Song song, String init)throws Exception {
         if (!songs.contains(song)) {
             songs.add(song);
+        } else {
+            throw new Exception("Song already in library");
+        }
+    }
+    * 
+    */
+            
+    public void addSong(Song song, String init) throws Exception {
+        if (!songs.contains(song)) {
+            songs.add(song);
+            if(!init.equalsIgnoreCase("INIT")){
+                addSongToLibTable(song);
+            }
         } else {
             throw new Exception("Song already in library");
         }
@@ -82,5 +100,24 @@ public class Library {
                 return s1.artist().compareToIgnoreCase(s2.artist());
             }
         });
+    }
+    
+    private void addSongToLibTable(Song newSong) {
+        String songName = newSong.title();
+        String songArtist = newSong.artist();
+        Path tmpPath = newSong.filePath();
+        String songPath = tmpPath.toString();
+        String userID = this.user.getUsername();
+        
+        LibraryDBRecord libRec = new LibraryDBRecord(userID, songName, songArtist, songPath);
+
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.getTransaction().begin();
+            session.persist(libRec);
+            session.getTransaction().commit();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
     }
 }

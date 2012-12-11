@@ -43,7 +43,7 @@ public class AddSongDialog {
             Song newSong = createSong();
             if (newSong != null) {
                 try {
-                    gui.currentLibrary().addSong(newSong);
+                    gui.currentLibrary().addSong(newSong,"null");
                     gui.updateLibrary();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(gui, ex.getMessage());

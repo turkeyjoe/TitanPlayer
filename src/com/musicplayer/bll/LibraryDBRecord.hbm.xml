@@ -4,8 +4,8 @@
 <hibernate-mapping>
   <class catalog="titan_player" name="com.musicplayer.bll.LibraryDBRecord" table="library">
     <id name="songNum" type="int">
-      <column name="song_num"/>
-      <generator class="assigned"/>
+      <column name="song_number"/>
+      <generator class="identity"/>
     </id>
     <!--many-to-one class="com.musicplayer.bll.LibraryDBRecord" fetch="select" name="library">
       <column length="10" name="user" type="string" not-null="true"/>

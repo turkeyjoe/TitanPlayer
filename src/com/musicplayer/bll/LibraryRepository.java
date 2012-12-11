@@ -108,7 +108,7 @@ public class LibraryRepository {
                         Song addToLib = new Song(libSongName, libSongArtist, libSong);
 
                         try {
-                            currentLibrary.addSong(addToLib);
+                            currentLibrary.addSong(addToLib, "INIT");
                         } catch (Exception ex) {
                             Logger.getLogger(LibraryRepository.class.getName()).log(Level.SEVERE, null, ex);
                         }

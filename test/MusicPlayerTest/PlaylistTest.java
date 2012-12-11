@@ -59,7 +59,7 @@ public class PlaylistTest {
     @Test
     public void addSongFromLibraryTest() throws Exception {
         Library myLibrary = new Library();
-        myLibrary.addSong(new Song("The Sign", "Ace of Base", path));
+        myLibrary.addSong(new Song("The Sign", "Ace of Base", path),"null");
         Playlist myPlaylist = new Playlist("Middle School");
         myPlaylist.addSong(myLibrary.getSong("Ace of Base","The Sign"));
         assertEquals(1, myPlaylist.songCount());
