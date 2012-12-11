@@ -52,9 +52,9 @@ public class PlayerGUI extends javax.swing.JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (tblPlaylists.getSelectedRow() != -1) {
-                if (!e.getValueIsAdjusting()) {
-                    displayPlaylist();
-                }
+                    if (!e.getValueIsAdjusting()) {
+                        displayPlaylist();
+                    }
                 }
             }
         });
@@ -487,7 +487,6 @@ public class PlayerGUI extends javax.swing.JFrame {
     private void btnAddToPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToPlaylistActionPerformed
         if (tblLibrary.getSelectedRow() != -1 && tblPlaylists.getSelectedRow() != -1) {
             try {
-                System.out.println("Add song to playlist");
                 int plrow = tblPlaylists.getSelectedRow();
                 int lrow = tblLibrary.getSelectedRow();
                 Playlist list = listRepo.getPlaylist(currentUser, tblPlaylists.getValueAt(plrow, 0).toString());
@@ -501,14 +500,15 @@ public class PlayerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddToPlaylistActionPerformed
 
     private void btnRemoveFromPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFromPlaylistActionPerformed
-        try {
-            Playlist list = listRepo.getPlaylist(currentUser, tblPlaylists.getValueAt(tblPlaylists.getSelectedRow(), 0).toString());
-            list.removeSong((Song) listPlaylist.getSelectedValue());
-            updatePlaylists();
-        } catch (Exception ex) {
-            Logger.getLogger(PlayerGUI.class.getName()).log(Level.SEVERE, null, ex);
+        if (listPlaylist.getSelectedIndex() != -1) {
+            try {
+                Playlist list = listRepo.getPlaylist(currentUser, tblPlaylists.getValueAt(tblPlaylists.getSelectedRow(), 0).toString());
+                list.removeSong((Song) listPlaylist.getSelectedValue());
+                updatePlaylists();
+            } catch (Exception ex) {
+                Logger.getLogger(PlayerGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        
     }//GEN-LAST:event_btnRemoveFromPlaylistActionPerformed
 
     /**
