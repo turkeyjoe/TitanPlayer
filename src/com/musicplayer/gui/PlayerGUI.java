@@ -474,6 +474,8 @@ public class PlayerGUI extends javax.swing.JFrame {
         if (selectedRow != -1) {
             listRepo.deletePlaylist(currentUser, tblPlaylists.getValueAt(selectedRow, 0).toString());
             updatePlaylists();
+        } else {
+            JOptionPane.showMessageDialog(this, "Select a playlist to be deleted", "Info", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnDeletePlaylistActionPerformed
 
@@ -485,30 +487,47 @@ public class PlayerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPlaylistTitleFocusGained
 
     private void btnAddToPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToPlaylistActionPerformed
-        if (tblLibrary.getSelectedRow() != -1 && tblPlaylists.getSelectedRow() != -1) {
-            try {
-                System.out.println("Add song to playlist");
-                int plrow = tblPlaylists.getSelectedRow();
-                int lrow = tblLibrary.getSelectedRow();
-                Playlist list = listRepo.getPlaylist(currentUser, tblPlaylists.getValueAt(plrow, 0).toString());
-                Song toAdd = currentLibrary.getSong(tblLibrary.getValueAt(lrow, 0).toString(), tblLibrary.getValueAt(lrow, 1).toString());
-                list.addSong(toAdd);
-                updatePlaylists();
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage());
+        if (tblLibrary.getSelectedRow() != -1) { 
+            if (tblPlaylists.getSelectedRow() != -1) {                
+                try {
+                    System.out.println("Add song to playlist");
+                    int plrow = tblPlaylists.getSelectedRow();
+                    int lrow = tblLibrary.getSelectedRow();
+                    Playlist list = listRepo.getPlaylist(currentUser, tblPlaylists.getValueAt(plrow, 0).toString());
+                    Song toAdd = currentLibrary.getSong(tblLibrary.getValueAt(lrow, 0).toString(), tblLibrary.getValueAt(lrow, 1).toString());
+                    list.addSong(toAdd);
+                    updatePlaylists();
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
+            } else {
+                // Display message that a playlist must be selected.
+                JOptionPane.showMessageDialog(this, "A playlist must be selected", "Info", JOptionPane.INFORMATION_MESSAGE);
             }
+        } else {
+            // Display message that a song must be selected.
+            JOptionPane.showMessageDialog(this, "A song from the library must be selected", "Info", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnAddToPlaylistActionPerformed
 
     private void btnRemoveFromPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFromPlaylistActionPerformed
-        try {
-            Playlist list = listRepo.getPlaylist(currentUser, tblPlaylists.getValueAt(tblPlaylists.getSelectedRow(), 0).toString());
-            list.removeSong((Song) listPlaylist.getSelectedValue());
-            updatePlaylists();
-        } catch (Exception ex) {
-            Logger.getLogger(PlayerGUI.class.getName()).log(Level.SEVERE, null, ex);
+        if (tblPlaylists.getSelectedRow() != -1) {
+            if (listPlaylist.getSelectedIndex() != -1) {
+                try {
+                    Playlist list = listRepo.getPlaylist(currentUser, tblPlaylists.getValueAt(tblPlaylists.getSelectedRow(), 0).toString());
+                    list.removeSong((Song) listPlaylist.getSelectedValue());
+                    updatePlaylists();
+                } catch (Exception ex) {
+                    Logger.getLogger(PlayerGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                // Display message that a song must be selected.
+                JOptionPane.showMessageDialog(this, "A song from the playlist must be selected", "Info", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            // Display message that a playlist must be selected.
+            JOptionPane.showMessageDialog(this, "A playlist must be selected", "Info", JOptionPane.INFORMATION_MESSAGE);
         }
-        
     }//GEN-LAST:event_btnRemoveFromPlaylistActionPerformed
 
     /**
