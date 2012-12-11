@@ -57,15 +57,15 @@ public class LibraryTest {
     @Test
     public void addSongToLibraryTest() throws Exception{
         Library testLibrary = new Library();
-        testLibrary.addSong(new Song("Dancing Nancies", "Dave Matthews Band", path),"null");
+        testLibrary.addSong(new Song("Dancing Nancies", "Dave Matthews Band", path),"INIT");
         assertEquals("song should be added to library", 1, testLibrary.songCount());
     }
     
     @Test
     public void removeSongFromLibraryTest() throws Exception{
         Library testLibrary = new Library();
-        testLibrary.addSong(new Song("Dancing Nancies", "Dave Matthews Band", path),"null");
-        testLibrary.addSong(new Song("Turn The Page", "Bob Seger", path),"null");
+        testLibrary.addSong(new Song("Dancing Nancies", "Dave Matthews Band", path),"INIT");
+        testLibrary.addSong(new Song("Turn The Page", "Bob Seger", path),"INIT");
         testLibrary.removeSong("Dave Matthews Band", "Dancing Nancies");
         assertEquals(1, testLibrary.songCount());
         assertEquals("Turn The Page", testLibrary.getSong("Bob Seger", "Turn The Page").title());
@@ -74,9 +74,9 @@ public class LibraryTest {
     @Test
     public void sortByTitleTest() throws Exception{
         Library myLibrary = new Library();
-        myLibrary.addSong(new Song("The Sign", "Ace of Base", path),"null");
-        myLibrary.addSong(new Song("Send The Pain Below", "Chevelle", path),"null");
-        myLibrary.addSong(new Song("Dancing Nancies", "Dave Matthews Band", path),"null");
+        myLibrary.addSong(new Song("The Sign", "Ace of Base", path),"INIT");
+        myLibrary.addSong(new Song("Send The Pain Below", "Chevelle", path),"INIT");
+        myLibrary.addSong(new Song("Dancing Nancies", "Dave Matthews Band", path),"INIT");
         assertEquals("The Sign", myLibrary.getSong("Ace of Base","The Sign").title());
         myLibrary.sortByTitle();
         assertEquals("Dancing Nancies", myLibrary.getSong("Dave Matthews Band", "Dancing Nancies").title());
@@ -85,9 +85,9 @@ public class LibraryTest {
     @Test
     public void sortByArtistTest() throws Exception{
         Library myLibrary = new Library();
-        myLibrary.addSong(new Song("Send The Pain Below", "Chevelle", path),"null");
-        myLibrary.addSong(new Song("The Sign", "Ace of Base", path),"null");        
-        myLibrary.addSong(new Song("Dancing Nancies", "Dave Matthews Band", path),"null");
+        myLibrary.addSong(new Song("Send The Pain Below", "Chevelle", path),"INIT");
+        myLibrary.addSong(new Song("The Sign", "Ace of Base", path),"INIT");        
+        myLibrary.addSong(new Song("Dancing Nancies", "Dave Matthews Band", path),"INIT");
         assertEquals("Chevelle", myLibrary.getSong("Chevelle", "Send The Pain Below").artist());
         myLibrary.sortByArtist();
         assertEquals("Ace of Base", myLibrary.getSong("Ace of Base","The Sign").artist());
@@ -98,8 +98,8 @@ public class LibraryTest {
     @Test(expected = Exception.class)
     public void cantAddSongTwiceTest() throws Exception{
         Library myLibrary = new Library();
-        myLibrary.addSong(new Song("Test", "Test", path),"null");
-        myLibrary.addSong(new Song("Test", "Test", path),"null");
+        myLibrary.addSong(new Song("Test", "Test", path),"INIT");
+        myLibrary.addSong(new Song("Test", "Test", path),"INIT");
         assertEquals(1, myLibrary.songCount());        
     }
 }
