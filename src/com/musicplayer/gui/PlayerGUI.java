@@ -43,7 +43,7 @@ public class PlayerGUI extends javax.swing.JFrame {
     /**
      * Creates new form PlayerGUI
      */
-    public PlayerGUI() {
+    public PlayerGUI() throws Exception {
         initComponents();
         repo = new LibraryRepository();
         userRepo = new UserRepository();
@@ -544,13 +544,19 @@ public class PlayerGUI extends javax.swing.JFrame {
 
                 //Uncomment to have login form at startup
 
-                PlayerGUI gui = new PlayerGUI();
-                gui.setLocationRelativeTo(null);
-                gui.setVisible(true);
-                LoginDialog log = new LoginDialog(gui, gui.userRepo);
-                log.setTitle("Welcome To Titan Player");
-                log.setLocationRelativeTo(gui);
-                log.setVisible(true);
+                PlayerGUI gui = null;
+                try {
+                    gui = new PlayerGUI();
+                    gui.setLocationRelativeTo(null);
+                    gui.setVisible(true);
+                    LoginDialog log = new LoginDialog(gui, gui.userRepo);
+                    log.setTitle("Welcome To Titan Player");
+                    log.setLocationRelativeTo(gui);
+                    log.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(PlayerGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         });
     }
