@@ -9,5 +9,6 @@
     <!--property name="hibernate.show_sql">true</property-->
     <mapping resource="com/musicplayer/bll/UserAccount.hbm.xml"/>
     <mapping resource="com/musicplayer/bll/LibraryDBRecord.hbm.xml"/>
+    <mapping resource="com/musicplayer/bll/PlaylistDBRecord.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

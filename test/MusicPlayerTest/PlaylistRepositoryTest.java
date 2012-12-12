@@ -8,6 +8,8 @@ import com.musicplayer.bll.Playlist;
 import com.musicplayer.bll.PlaylistRepository;
 import com.musicplayer.bll.UserAccount;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -42,38 +44,54 @@ public class PlaylistRepositoryTest {
     
     @Test
     public void createRepositoryTest(){
-        PlaylistRepository repo = new PlaylistRepository();
-        assertEquals(0, repo.size());
+        try {
+            PlaylistRepository repo = new PlaylistRepository();
+            assertEquals(0, repo.size());
+        } catch (Exception ex) {
+            Logger.getLogger(PlaylistRepositoryTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Test
     public void addPlaylistToRepositoryTest(){
-        PlaylistRepository repo = new PlaylistRepository();
-        Playlist list = new Playlist("Test");
-        repo.addPlaylist(list);
-        assertEquals(1, repo.size());
+        try {
+            PlaylistRepository repo = new PlaylistRepository();
+            Playlist list = new Playlist("Test");
+            repo.addPlaylist(list);
+            assertEquals(1, repo.size());
+        } catch (Exception ex) {
+            Logger.getLogger(PlaylistRepositoryTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Test
     public void getPlaylistTest(){
-        PlaylistRepository repo = new PlaylistRepository();
-        Playlist list = new Playlist("Test");
-        UserAccount user = new UserAccount("TJN", "#3l", "a@b.com");
-        list.addUser(user);
-        repo.addPlaylist(list);
-        List<Playlist> userLists = repo.getUserPlaylists(user);
-        assertSame(list, userLists.get(0));
+        try {
+            PlaylistRepository repo = new PlaylistRepository();
+            Playlist list = new Playlist("Test");
+            UserAccount user = new UserAccount("TJN", "#3l", "a@b.com");
+            list.addUser(user);
+            repo.addPlaylist(list);
+            List<Playlist> userLists = repo.getUserPlaylists(user);
+            assertSame(list, userLists.get(0));
+        } catch (Exception ex) {
+            Logger.getLogger(PlaylistRepositoryTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Test
     public void deletePlaylistTest(){
-        PlaylistRepository repo = new PlaylistRepository();
-        Playlist list = new Playlist("Test");
-        UserAccount user = new UserAccount("TJN", "#3l", "a@b.com");
-        list.addUser(user);
-        repo.addPlaylist(list);
-        assertEquals(1, repo.size());
-        repo.deletePlaylist(user, "Test");
-        assertEquals(0, repo.size());
+        try {
+            PlaylistRepository repo = new PlaylistRepository();
+            Playlist list = new Playlist("Test");
+            UserAccount user = new UserAccount("TJN", "#3l", "a@b.com");
+            list.addUser(user);
+            repo.addPlaylist(list);
+            assertEquals(1, repo.size());
+            repo.deletePlaylist(user, "Test");
+            assertEquals(0, repo.size());
+        } catch (Exception ex) {
+            Logger.getLogger(PlaylistRepositoryTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
