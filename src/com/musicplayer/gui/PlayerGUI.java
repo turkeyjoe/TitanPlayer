@@ -16,6 +16,7 @@ import com.musicplayer.bll.LibraryDataModel;
 import com.musicplayer.bll.LibraryRepository;
 import com.musicplayer.bll.Playlist;
 import com.musicplayer.bll.PlaylistDataModel;
+import com.musicplayer.bll.PlaylistNotFoundException;
 import com.musicplayer.bll.PlaylistRepository;
 import com.musicplayer.bll.Song;
 import com.musicplayer.bll.UserAccount;
@@ -89,8 +90,10 @@ public class PlayerGUI extends javax.swing.JFrame {
         Playlist list = null;
         try {
             list = listRepo.getPlaylist(currentUser, tblPlaylists.getValueAt(tblPlaylists.getSelectedRow(), 0).toString());
-        } catch (Exception ex) {
+        } catch (PlaylistNotFoundException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
+        
         Object[] songs = list.getList();
         DefaultListModel model = (DefaultListModel) listPlaylist.getModel();
         model.clear();
@@ -509,7 +512,7 @@ public class PlayerGUI extends javax.swing.JFrame {
                     Song toAdd = currentLibrary.getSong(tblLibrary.getValueAt(lrow, 0).toString(), tblLibrary.getValueAt(lrow, 1).toString());
                     list.addSong(toAdd);
                     updatePlaylists();
-                } catch (Exception ex) {
+                } catch (PlaylistNotFoundException ex) {
                     System.out.println(ex.getMessage());
                 }
             } else {

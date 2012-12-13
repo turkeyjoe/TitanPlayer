@@ -31,13 +31,13 @@ public class UserRepository {
         return users.size();
     }
 
-    public UserAccount getUser(String name) throws Exception {
+    public UserAccount getUser(String name) throws UserNotFoundException {
         for (UserAccount user : users) {
             if (user.username().equals(name)) {
                 return user;
             }
         }
-        throw new Exception("User does not exist");
+        throw new UserNotFoundException("User not found in database.");
     }
     
     public boolean checkForUsername(String name){

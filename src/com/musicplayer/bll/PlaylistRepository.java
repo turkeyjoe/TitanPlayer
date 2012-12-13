@@ -33,13 +33,13 @@ public class PlaylistRepository {
         return playlists.size();
     }
 
-    public Playlist getPlaylist(UserAccount user, String listName) throws Exception {
+    public Playlist getPlaylist(UserAccount user, String listName) throws PlaylistNotFoundException {
         for (Playlist pl : playlists) {
             if (pl.getUser() == user && pl.getName().equals(listName)) {
                 return pl;
             }
         }
-        throw new Exception("Playlist not found");
+        throw new PlaylistNotFoundException("Playlist not found");
     }
 
     public void deletePlaylist(UserAccount user, String listName) {

@@ -8,9 +8,9 @@ package com.musicplayer.bll;
  *
  * @author TJ
  */
-public class IllegalPasswordException extends Exception {
+public class InvalidEmailException extends Exception {
 
-    public IllegalPasswordException(String msg) {
+    public InvalidEmailException(String msg) {
         super(msg);
     }
     

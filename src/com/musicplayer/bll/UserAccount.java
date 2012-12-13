@@ -97,12 +97,12 @@ public class UserAccount {
     }
     
     public boolean validateLogin(String pass, String email) 
-        throws Exception {
+        throws InvalidPasswordException, InvalidEmailException {
         if (!this.password.equals(pass)){
-            throw new IllegalPasswordException("Password incorrect for user.");
+            throw new InvalidPasswordException("Password incorrect for user.");
         }
         if (!this.email.equals(email)){
-            throw new Exception("Invalid Email");
+            throw new InvalidEmailException("Email incorrect for user.");
         }
         return true;
     }
