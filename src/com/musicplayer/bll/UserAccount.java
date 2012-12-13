@@ -99,7 +99,7 @@ public class UserAccount {
     public boolean validateLogin(String pass, String email) 
         throws Exception {
         if (!this.password.equals(pass)){
-            throw new Exception("Invalid Password");
+            throw new IllegalPasswordException("Password incorrect for user.");
         }
         if (!this.email.equals(email)){
             throw new Exception("Invalid Email");
