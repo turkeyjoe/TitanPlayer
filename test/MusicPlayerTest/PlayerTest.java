@@ -84,6 +84,17 @@ public class PlayerTest {
         assertFalse(myPlayer.isPlaying());        
     }
     
+    @Test
+    public void pauseSongTest() {
+        Player myPlayer = new Player();
+        Playlist myList = new Playlist("Test List");
+        myList.addSong(new Song("Gangnum Style", "Psy", path));
+        myPlayer.loadPlaylist(myList);
+        assertTrue(myPlayer.pause());
+        myPlayer.paused();
+        assertFalse(myPlayer.pause());
+    }
+    
     /*@Test
     public void singletonTest(){
         PlayerGUI gui1 = PlayerGUI.getInstance();
