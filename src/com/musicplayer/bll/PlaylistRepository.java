@@ -4,11 +4,13 @@
  */
 package com.musicplayer.bll;
 
+import com.musicplayer.exceptions.PlaylistNotFoundException;
 import TitanPlayer.util.HibernateUtil;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
@@ -50,8 +52,8 @@ public class PlaylistRepository {
                     playlists.remove(pl);
                 }
             }
-        } catch (Exception ex) {
-            
+        } catch (PlaylistNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 

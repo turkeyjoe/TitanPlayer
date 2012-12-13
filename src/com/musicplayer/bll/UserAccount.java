@@ -4,6 +4,7 @@
  */
 package com.musicplayer.bll;
 
+import com.musicplayer.exceptions.AccountValidationException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -97,12 +98,12 @@ public class UserAccount {
     }
     
     public boolean validateLogin(String pass, String email) 
-        throws InvalidPasswordException, InvalidEmailException {
+        throws AccountValidationException {
         if (!this.password.equals(pass)){
-            throw new InvalidPasswordException("Password incorrect for user.");
+            throw new AccountValidationException("Password incorrect for user.");
         }
         if (!this.email.equals(email)){
-            throw new InvalidEmailException("Email incorrect for user.");
+            throw new AccountValidationException("Email incorrect for user.");
         }
         return true;
     }

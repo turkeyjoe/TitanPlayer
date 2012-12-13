@@ -16,7 +16,7 @@ import com.musicplayer.bll.LibraryDataModel;
 import com.musicplayer.bll.LibraryRepository;
 import com.musicplayer.bll.Playlist;
 import com.musicplayer.bll.PlaylistDataModel;
-import com.musicplayer.bll.PlaylistNotFoundException;
+import com.musicplayer.exceptions.PlaylistNotFoundException;
 import com.musicplayer.bll.PlaylistRepository;
 import com.musicplayer.bll.Song;
 import com.musicplayer.bll.UserAccount;
@@ -532,8 +532,8 @@ public class PlayerGUI extends javax.swing.JFrame {
                     Playlist list = listRepo.getPlaylist(currentUser, tblPlaylists.getValueAt(tblPlaylists.getSelectedRow(), 0).toString());
                     list.removeSong((Song) listPlaylist.getSelectedValue());
                     updatePlaylists();
-                } catch (Exception ex) {
-                    Logger.getLogger(PlayerGUI.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (PlaylistNotFoundException ex) {
+                    JOptionPane.showMessageDialog(rootPane, ex.getMessage());
                 }
             } else {
                 // Display message that a song must be selected.
@@ -592,7 +592,7 @@ public class PlayerGUI extends javax.swing.JFrame {
                     log.setLocationRelativeTo(gui);
                     log.setVisible(true);
                 } catch (Exception ex) {
-                    Logger.getLogger(PlayerGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
                 
             }

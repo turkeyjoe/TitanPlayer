@@ -4,6 +4,7 @@
  */
 package com.musicplayer.bll;
 
+import com.musicplayer.exceptions.UserNotFoundException;
 import TitanPlayer.util.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;

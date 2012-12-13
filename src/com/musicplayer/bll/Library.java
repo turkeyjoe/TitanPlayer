@@ -4,6 +4,7 @@
  */
 package com.musicplayer.bll;
 
+import com.musicplayer.exceptions.DuplicateSongException;
 import TitanPlayer.util.HibernateUtil;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -31,14 +32,14 @@ public class Library {
         return songs.size();
     }
             
-    public void addSong(Song song, String init) throws Exception {
+    public void addSong(Song song, String init) throws DuplicateSongException {
         if (!songs.contains(song)) {
             songs.add(song);
             if(!init.equalsIgnoreCase("INIT")){
                 addSongToLibTable(song);
             }
         } else {
-            throw new Exception("Song already in library");
+            throw new DuplicateSongException("Song already in library");
         }
     }
 

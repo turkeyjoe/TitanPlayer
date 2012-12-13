@@ -4,10 +4,9 @@
  */
 package com.musicplayer.gui;
 
-import com.musicplayer.bll.InvalidPasswordException;
-import com.musicplayer.bll.InvalidEmailException;
+import com.musicplayer.exceptions.AccountValidationException;
 import com.musicplayer.bll.UserAccount;
-import com.musicplayer.bll.UserNotFoundException;
+import com.musicplayer.exceptions.UserNotFoundException;
 import com.musicplayer.bll.UserRepository;
 import javax.swing.JOptionPane;
 
@@ -124,7 +123,7 @@ public class LoginDialog extends javax.swing.JDialog {
                 gui.setTitle("Titan Player - " + user.username());
                 this.dispose();
             }
-        } catch (InvalidPasswordException | InvalidEmailException | UserNotFoundException ex) {
+        } catch (AccountValidationException | UserNotFoundException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
     }//GEN-LAST:event_btnLoginActionPerformed

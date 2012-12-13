@@ -4,6 +4,7 @@
  */
 package com.musicplayer.bll;
 
+import com.musicplayer.exceptions.DuplicateSongException;
 import com.musicplayer.gui.PlayerGUI;
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +46,7 @@ public class AddSongDialog {
                 try {
                     gui.currentLibrary().addSong(newSong,"null");
                     gui.updateLibrary();
-                } catch (Exception ex) {
+                } catch (DuplicateSongException ex) {
                     JOptionPane.showMessageDialog(gui, ex.getMessage());
                 }              
             } else {
@@ -64,21 +65,8 @@ public class AddSongDialog {
             Song newSong = new Song(tag.getFirst(FieldKey.TITLE),
                     tag.getFirst(FieldKey.ARTIST), Paths.get(song.getPath()));
             return newSong;
-        } catch (CannotReadException ex) {
-            Logger.getLogger(AddSongDialog.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(AddSongDialog.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        } catch (TagException ex) {
-            Logger.getLogger(AddSongDialog.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        } catch (ReadOnlyFileException ex) {
-            Logger.getLogger(AddSongDialog.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidAudioFrameException ex) {
-            Logger.getLogger(AddSongDialog.class
-                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException ex) {
+            JOptionPane.showMessageDialog(gui, ex.getMessage());
         }
         return null;
     }

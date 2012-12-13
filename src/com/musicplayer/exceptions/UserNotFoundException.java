@@ -2,15 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.musicplayer.bll;
+package com.musicplayer.exceptions;
 
 /**
  *
  * @author TJ
  */
-public class PlaylistNotFoundException extends Exception {
+public class UserNotFoundException extends Exception {
 
-    public PlaylistNotFoundException(String msg) {
+    public UserNotFoundException(String msg) {
         super(msg);
     }
     

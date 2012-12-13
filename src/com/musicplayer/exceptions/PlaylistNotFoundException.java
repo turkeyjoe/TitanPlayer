@@ -2,15 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.musicplayer.bll;
+package com.musicplayer.exceptions;
 
 /**
  *
  * @author TJ
  */
-public class InvalidPasswordException extends Exception {
+public class PlaylistNotFoundException extends Exception {
 
-    public InvalidPasswordException(String msg) {
+    public PlaylistNotFoundException(String msg) {
         super(msg);
     }
     
