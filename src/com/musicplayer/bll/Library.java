@@ -25,7 +25,7 @@ public class Library {
     private UserAccount user;
 
     public Library() {
-        songs = new ArrayList<Song>();
+        songs = new ArrayList<>();
     }
 
     public int songCount() {

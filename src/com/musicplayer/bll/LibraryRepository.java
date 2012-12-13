@@ -19,7 +19,7 @@ import org.hibernate.Session;
  * @author Kyle
  */
 public class LibraryRepository {
-    private ArrayList<Library> libraries = new ArrayList<Library>();
+    private ArrayList<Library> libraries = new ArrayList<>();
     
     public LibraryRepository() {
         libraries = loadLibrary();
@@ -59,7 +59,7 @@ public class LibraryRepository {
     private ArrayList<Library> getAllSongsHQLQuery(String libUsersListQuery) {
         UserRepository userList = new UserRepository();
         Library currentLibrary = new Library();
-        ArrayList<Library> allLibraries = new ArrayList<Library>();
+        ArrayList<Library> allLibraries = new ArrayList<>();
         
         String querySong = "select lib.songName from LibraryDBRecord lib";
         String queryArtist = "select lib.songArtist from LibraryDBRecord lib";

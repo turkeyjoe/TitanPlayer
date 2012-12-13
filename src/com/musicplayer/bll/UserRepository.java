@@ -4,8 +4,8 @@
  */
 package com.musicplayer.bll;
 
-import com.musicplayer.exceptions.UserNotFoundException;
 import TitanPlayer.util.HibernateUtil;
+import com.musicplayer.exceptions.UserNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -17,7 +17,7 @@ import org.hibernate.Session;
  */
 public class UserRepository {
 
-    private ArrayList<UserAccount> users = new ArrayList<UserAccount>();
+    private ArrayList<UserAccount> users = new ArrayList<>();
 
     public UserRepository() {
         users = loadUserRepo();
@@ -63,7 +63,7 @@ public class UserRepository {
         List nameList = null;
         List emailList = null;
         List passwordList = null;
-        ArrayList<UserAccount> userList = new ArrayList<UserAccount>();
+        ArrayList<UserAccount> userList = new ArrayList<>();
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
